@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# APK builds (served via GitHub Releases / Supabase Storage instead)
+/public/downloads/*.apk
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
