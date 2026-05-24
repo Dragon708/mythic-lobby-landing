@@ -16,7 +16,12 @@ const SITE_NAME = "MLBB Mythic Lobby";
 const SITE_DESCRIPTION =
   "La app cubana para conectar jugadores de Mobile Legends. Armá equipos, organizá partidas y hablá por voz, todo en un solo lugar — sin Discord ni VPN.";
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: `${SITE_NAME} — Comunidad MLBB Cuba`,
     template: `%s · ${SITE_NAME}`,
