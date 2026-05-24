@@ -5,8 +5,6 @@ const APK_DOWNLOAD_URL =
   process.env.NEXT_PUBLIC_APK_URL ??
   "https://github.com/Dragon708/mlbb-landing/releases/latest/download/mlbb-mythic-lobby.apk";
 const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0";
-const COMMUNITY_WHATSAPP_URL =
-  process.env.NEXT_PUBLIC_COMMUNITY_URL ?? "https://wa.me/";
 
 export default function Home() {
   return (
@@ -478,19 +476,10 @@ function CallToAction() {
               Descargá la app, creá tu perfil y empezá a armar partidas en
               minutos.
             </p>
-            <div className="flex flex-wrap gap-3 justify-center mt-7">
+            <div className="flex justify-center mt-7">
               <a href={APK_DOWNLOAD_URL} className="btn-primary">
                 <IconAndroid className="w-5 h-5" />
                 Descargar APK
-              </a>
-              <a
-                href={COMMUNITY_WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary"
-              >
-                <IconWhatsapp className="w-5 h-5" />
-                Unirme a la comunidad
               </a>
             </div>
           </div>
@@ -649,13 +638,6 @@ function IconPlus({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 5v14" /><path d="M5 12h14" />
-    </svg>
-  );
-}
-function IconWhatsapp({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-      <path d="M20 3.5A11 11 0 0 0 2.4 17l-1.4 5 5.1-1.3A11 11 0 1 0 20 3.5Zm-7.9 17.6a9.1 9.1 0 0 1-4.6-1.3l-.3-.2-3 .8.8-2.9-.2-.3a9.1 9.1 0 1 1 7.3 3.9Zm5-6.8c-.3-.1-1.6-.8-1.8-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.1-1.2-.5-2.3-1.5-.8-.7-1.4-1.7-1.6-2-.1-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.7-1.7c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.2.3-.9.9-.9 2.2 0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.7 4.4 3.8.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3Z"/>
     </svg>
   );
 }
