@@ -3,7 +3,7 @@
 La landing apunta por default a:
 
 ```
-https://github.com/devteamnt/mlbb-landing/releases/latest/download/mlbb-mythic-lobby.apk
+https://github.com/Dragon708/mlbb-landing/releases/latest/download/mlbb-mythic-lobby.apk
 ```
 
 GitHub resuelve `/releases/latest/...` siempre al release más nuevo, así que **no hace falta tocar la landing ni redeplegar Vercel** cuando sale build nueva. Sólo subís un release nuevo con el asset llamado `mlbb-mythic-lobby.apk`.
@@ -40,7 +40,7 @@ $APK = "../mythic-lobby/android/app/build/outputs/apk/release/MLBB Mythic Lobby.
 Copy-Item $APK "./mlbb-mythic-lobby.apk"
 
 gh release create "v$VERSION" "./mlbb-mythic-lobby.apk" `
-  --repo devteamnt/mlbb-landing `
+  --repo Dragon708/mlbb-landing `
   --title "v$VERSION" `
   --notes "Changelog…"
 
@@ -64,5 +64,5 @@ La app móvil chequea Supabase Storage `app-releases/` para mostrar el modal de 
 Las URLs `releases/latest/download/...` **sólo son accesibles si el repo es público**. Si lo dejás privado, la descarga desde la landing va a dar 404 para usuarios sin sesión de GitHub.
 
 Opciones:
-- **A** (recomendado): `gh repo edit devteamnt/mlbb-landing --visibility public --accept-visibility-change-consequences`
+- **A** (recomendado): `gh repo edit Dragon708/mlbb-landing --visibility public --accept-visibility-change-consequences`
 - **B**: Mantenerlo privado y servir el APK desde Supabase Storage. Cambiá `NEXT_PUBLIC_APK_URL` en Vercel a la URL del bucket.

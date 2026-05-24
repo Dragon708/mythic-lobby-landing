@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const APK_DOWNLOAD_URL =
   process.env.NEXT_PUBLIC_APK_URL ??
-  "https://github.com/devteamnt/mlbb-landing/releases/latest/download/mlbb-mythic-lobby.apk";
+  "https://github.com/Dragon708/mlbb-landing/releases/latest/download/mlbb-mythic-lobby.apk";
 const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0";
 const COMMUNITY_WHATSAPP_URL =
   process.env.NEXT_PUBLIC_COMMUNITY_URL ?? "https://wa.me/";
