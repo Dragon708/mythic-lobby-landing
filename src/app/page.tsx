@@ -5,10 +5,43 @@ const APK_DOWNLOAD_URL =
   process.env.NEXT_PUBLIC_APK_URL ??
   "https://github.com/Dragon708/mlbb-landing/releases/latest/download/mlbb-mythic-lobby.apk";
 const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://mlbb-landing.vercel.app");
+
+const FAQ_ITEMS = [
+  {
+    q: "¿Es gratis?",
+    a: "Sí, 100%. No hay anuncios ni planes premium. Si querés ayudar, podés aportar desde la sección Apoyar dentro de la app.",
+  },
+  {
+    q: "¿Funciona en Cuba sin VPN?",
+    a: "Sí. Las notificaciones usan Pushy, que funciona en redes cubanas sin VPN. El chat de voz usa LiveKit Cloud y también funciona.",
+  },
+  {
+    q: "¿Por qué solo Android por ahora?",
+    a: "Estamos en MODO PRUEBA y arrancamos con APK directo para iterar rápido. iOS llega más adelante.",
+  },
+  {
+    q: "¿Es seguro instalar el APK?",
+    a: "Sí, lo firmamos nosotros y la app se actualiza sola desde adentro. Si te aparece advertencia de \"Origen desconocido\" es lo normal cuando una app no viene del Play Store — activá la instalación para nuestra app y listo.",
+  },
+  {
+    q: "¿Qué hago si encuentro un bug o tengo una idea?",
+    a: "Mandanos feedback desde Perfil → Feedback dentro de la app. Lo leemos todo y muchas ideas de la comunidad ya están integradas.",
+  },
+  {
+    q: "¿Necesito Discord?",
+    a: "No. Cada equipo y cada partida tiene su chat y su sala de voz adentro de la app.",
+  },
+] as const;
 
 export default function Home() {
   return (
     <>
+      <StructuredData />
       <NavBar />
       <main className="flex-1">
         <Hero />
@@ -21,6 +54,71 @@ export default function Home() {
       </main>
       <Footer />
     </>
+  );
+}
+
+function StructuredData() {
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "MLBB Mythic Lobby",
+      url: SITE_URL,
+      inLanguage: "es",
+      description:
+        "Comunidad cubana de Mobile Legends: armá equipos, organizá partidas y hablá por voz desde una sola app.",
+      publisher: {
+        "@type": "Organization",
+        name: "MLBB Mythic Lobby",
+        logo: { "@type": "ImageObject", url: `${SITE_URL}/brand/icon.png` },
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "MobileApplication",
+      name: "MLBB Mythic Lobby",
+      operatingSystem: "Android",
+      applicationCategory: "GameApplication",
+      applicationSubCategory: "Community",
+      inLanguage: "es",
+      softwareVersion: APP_VERSION,
+      downloadUrl: APK_DOWNLOAD_URL,
+      installUrl: APK_DOWNLOAD_URL,
+      fileSize: "110MB",
+      description:
+        "Armá equipos, organizá partidas, hablá por voz y conocé jugadores de Mobile Legends — todo en español, sin Discord ni VPN. Hecho por y para la comunidad cubana.",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+      },
+      image: `${SITE_URL}/brand/og-image.jpg`,
+      screenshot: `${SITE_URL}/brand/banner.png`,
+      author: {
+        "@type": "Organization",
+        name: "MLBB Mythic Lobby",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: FAQ_ITEMS.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.a,
+        },
+      })),
+    },
+  ];
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
   );
 }
 
@@ -411,38 +509,12 @@ function Donate() {
 }
 
 function FAQ() {
-  const qs = [
-    {
-      q: "¿Es gratis?",
-      a: "Sí, 100%. No hay anuncios ni planes premium. Si querés ayudar, podés aportar desde la sección Apoyar dentro de la app.",
-    },
-    {
-      q: "¿Funciona en Cuba sin VPN?",
-      a: "Sí. Las notificaciones usan Pushy, que funciona en redes cubanas sin VPN. El chat de voz usa LiveKit Cloud y también funciona.",
-    },
-    {
-      q: "¿Por qué solo Android por ahora?",
-      a: "Estamos en MODO PRUEBA y arrancamos con APK directo para iterar rápido. iOS llega más adelante.",
-    },
-    {
-      q: "¿Es seguro instalar el APK?",
-      a: "Sí, lo firmamos nosotros y la app se actualiza sola desde adentro. Si te aparece advertencia de \"Origen desconocido\" es lo normal cuando una app no viene del Play Store — activá la instalación para nuestra app y listo.",
-    },
-    {
-      q: "¿Qué hago si encuentro un bug o tengo una idea?",
-      a: "Mandanos feedback desde Perfil → Feedback dentro de la app. Lo leemos todo y muchas ideas de la comunidad ya están integradas.",
-    },
-    {
-      q: "¿Necesito Discord?",
-      a: "No. Cada equipo y cada partida tiene su chat y su sala de voz adentro de la app.",
-    },
-  ];
   return (
     <section id="faq" className="relative py-20 md:py-28">
       <div className="max-w-3xl mx-auto px-5 sm:px-8">
         <SectionHeader eyebrow="Preguntas frecuentes" title={<>Lo que más nos preguntan</>} />
         <div className="mt-12 space-y-3">
-          {qs.map((item, i) => (
+          {FAQ_ITEMS.map((item, i) => (
             <details
               key={i}
               className="card group p-5 [&_summary::-webkit-details-marker]:hidden"
