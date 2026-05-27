@@ -1,109 +1,126 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { STRINGS, type Lang } from "@/lib/strings";
 
 const APK_DOWNLOAD_URL =
   process.env.NEXT_PUBLIC_APK_URL ??
   "https://github.com/Dragon708/mlbb-landing/releases/latest/download/mlbb-mythic-lobby.apk";
 const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0";
+const CONTACT_EMAIL = "jorgegmdgonzalez@gmail.com";
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "https://mlbb-landing.vercel.app");
 
-const FAQ_ITEMS = [
-  {
-    q: "¿Es gratis?",
-    a: "Sí, 100%. No hay anuncios ni planes premium. Si querés ayudar, podés aportar desde la sección Apoyar dentro de la app.",
-  },
-  {
-    q: "¿Funciona en Cuba sin VPN?",
-    a: "Sí. Las notificaciones usan Pushy, que funciona en redes cubanas sin VPN. El chat de voz usa LiveKit Cloud y también funciona.",
-  },
-  {
-    q: "¿Por qué solo Android por ahora?",
-    a: "Estamos en MODO PRUEBA y arrancamos con APK directo para iterar rápido. iOS llega más adelante.",
-  },
-  {
-    q: "¿Es seguro instalar el APK?",
-    a: "Sí, lo firmamos nosotros y la app se actualiza sola desde adentro. Si te aparece advertencia de \"Origen desconocido\" es lo normal cuando una app no viene del Play Store — activá la instalación para nuestra app y listo.",
-  },
-  {
-    q: "¿Qué hago si encuentro un bug o tengo una idea?",
-    a: "Mandanos feedback desde Perfil → Feedback dentro de la app. Lo leemos todo y muchas ideas de la comunidad ya están integradas.",
-  },
-  {
-    q: "¿Necesito Discord?",
-    a: "No. Cada equipo y cada partida tiene su chat y su sala de voz adentro de la app.",
-  },
-] as const;
+const STORAGE_KEY = "ml.lang";
+
+function useLang(): [Lang, (l: Lang) => void] {
+  const [lang, setLangState] = useState<Lang>("es");
+
+  useEffect(() => {
+    const saved = typeof window !== "undefined" ? window.localStorage.getItem(STORAGE_KEY) : null;
+    if (saved === "es" || saved === "en") {
+      setLangState(saved);
+      return;
+    }
+    if (typeof navigator !== "undefined" && navigator.language) {
+      const nav = navigator.language.toLowerCase();
+      if (nav.startsWith("en")) setLangState("en");
+    }
+  }, []);
+
+  const setLang = (l: Lang) => {
+    setLangState(l);
+    if (typeof window !== "undefined") window.localStorage.setItem(STORAGE_KEY, l);
+    if (typeof document !== "undefined") document.documentElement.lang = l;
+  };
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.documentElement.lang = lang;
+    const t = STRINGS[lang];
+    document.title = `${t.meta.siteName} — ${t.meta.tagline}`;
+    const desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute("content", t.meta.description);
+  }, [lang]);
+
+  return [lang, setLang];
+}
 
 export default function Home() {
+  const [lang, setLang] = useLang();
+  const t = STRINGS[lang];
+
   return (
     <>
-      <StructuredData />
-      <NavBar />
+      <StructuredData lang={lang} />
+      <NavBar lang={lang} setLang={setLang} t={t} />
       <main className="flex-1">
-        <Hero />
-        <Features />
-        <Showcase />
-        <Voice />
-        <Donate />
-        <FAQ />
-        <CallToAction />
+        <Hero t={t} />
+        <Games t={t} />
+        <Partnership t={t} />
+        <Features t={t} />
+        <Showcase t={t} />
+        <Voice t={t} />
+        <Donate t={t} />
+        <FAQ t={t} />
+        <CallToAction t={t} />
       </main>
-      <Footer />
+      <Footer t={t} />
     </>
   );
 }
 
-function StructuredData() {
+function StructuredData({ lang }: { lang: Lang }) {
+  const t = STRINGS[lang];
   const jsonLd = [
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      name: "MLBB Mythic Lobby",
+      name: t.meta.siteName,
       url: SITE_URL,
-      inLanguage: "es",
-      description:
-        "Comunidad cubana de Mobile Legends: armá equipos, organizá partidas y hablá por voz desde una sola app.",
+      inLanguage: lang,
+      description: t.jsonLd.description,
       publisher: {
         "@type": "Organization",
-        name: "MLBB Mythic Lobby",
+        name: t.meta.siteName,
         logo: { "@type": "ImageObject", url: `${SITE_URL}/brand/icon.png` },
       },
     },
     {
       "@context": "https://schema.org",
       "@type": "MobileApplication",
-      name: "MLBB Mythic Lobby",
+      name: t.meta.siteName,
       operatingSystem: "Android",
       applicationCategory: "GameApplication",
       applicationSubCategory: "Community",
-      inLanguage: "es",
+      inLanguage: lang,
       softwareVersion: APP_VERSION,
       downloadUrl: APK_DOWNLOAD_URL,
       installUrl: APK_DOWNLOAD_URL,
       fileSize: "110MB",
-      description:
-        "Armá equipos, organizá partidas, hablá por voz y conocé jugadores de Mobile Legends — todo en español, sin Discord ni VPN. Hecho por y para la comunidad cubana.",
+      description: t.jsonLd.mobileAppDescription,
       offers: {
         "@type": "Offer",
         price: "0",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
       },
-      image: `${SITE_URL}/brand/og-image.jpg`,
+      image: `${SITE_URL}/brand/og-image.png`,
       screenshot: `${SITE_URL}/brand/banner.png`,
       author: {
         "@type": "Organization",
-        name: "MLBB Mythic Lobby",
+        name: t.meta.siteName,
       },
     },
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: FAQ_ITEMS.map((item) => ({
+      mainEntity: t.faq.items.map((item) => ({
         "@type": "Question",
         name: item.q,
         acceptedAnswer: {
@@ -122,106 +139,166 @@ function StructuredData() {
   );
 }
 
-function NavBar() {
+type T = (typeof STRINGS)[Lang];
+
+function NavBar({ lang, setLang, t }: { lang: Lang; setLang: (l: Lang) => void; t: T }) {
   return (
     <header className="sticky top-0 z-40 backdrop-blur-md bg-[rgba(5,7,14,0.65)] border-b border-border/60">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
-        <Link href="#top" className="flex items-center gap-2.5 group">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-3">
+        <Link href="#top" className="flex items-center gap-2.5 group min-w-0">
           <Image
             src="/brand/icon.png"
-            alt="MLBB Mythic Lobby"
-            width={36}
-            height={36}
-            className="rounded-lg ring-1 ring-border/70 group-hover:ring-primary/60 transition"
+            alt={t.meta.siteName}
+            width={40}
+            height={40}
+            className="rounded-lg ring-1 ring-border/70 group-hover:ring-primary/60 transition shrink-0"
             priority
           />
-          <span className="text-foreground font-bold tracking-tight">
+          <span className="text-foreground font-bold tracking-tight hidden sm:inline">
             Mythic <span className="text-gradient">Lobby</span>
           </span>
         </Link>
-        <nav className="hidden md:flex items-center gap-7 text-sm text-soft">
-          <a href="#features" className="hover:text-foreground transition">Características</a>
-          <a href="#showcase" className="hover:text-foreground transition">Cómo funciona</a>
-          <a href="#voice" className="hover:text-foreground transition">Voz en juego</a>
-          <a href="#donate" className="hover:text-foreground transition">Apoyar</a>
-          <a href="#faq" className="hover:text-foreground transition">FAQ</a>
+        <nav className="hidden md:flex items-center gap-6 text-sm text-soft">
+          <a href="#games" className="hover:text-foreground transition">{t.nav.games}</a>
+          <a href="#features" className="hover:text-foreground transition">{t.nav.features}</a>
+          <a href="#showcase" className="hover:text-foreground transition">{t.nav.showcase}</a>
+          <a href="#voice" className="hover:text-foreground transition">{t.nav.voice}</a>
+          <a href="#donate" className="hover:text-foreground transition">{t.nav.donate}</a>
+          <a href="#faq" className="hover:text-foreground transition">{t.nav.faq}</a>
+          <a href="#partnership" className="hover:text-foreground transition">{t.nav.partnership}</a>
         </nav>
-        <a href={APK_DOWNLOAD_URL} className="btn-primary text-sm py-2.5 px-4">
-          <IconDownload className="w-4 h-4" />
-          Descargar
-        </a>
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher lang={lang} setLang={setLang} label={t.nav.languageLabel} />
+          <a href={APK_DOWNLOAD_URL} className="btn-primary text-sm py-2.5 px-4">
+            <IconDownload className="w-4 h-4" />
+            <span className="hidden sm:inline">{t.nav.download}</span>
+          </a>
+        </div>
       </div>
     </header>
   );
 }
 
-function Hero() {
+function LanguageSwitcher({
+  lang,
+  setLang,
+  label,
+}: {
+  lang: Lang;
+  setLang: (l: Lang) => void;
+  label: string;
+}) {
+  return (
+    <div
+      role="group"
+      aria-label={label}
+      className="inline-flex items-center rounded-full border border-border/70 bg-surface-2/70 p-0.5 text-xs font-bold"
+    >
+      {(["es", "en"] as const).map((l) => (
+        <button
+          key={l}
+          type="button"
+          onClick={() => setLang(l)}
+          aria-pressed={lang === l}
+          className={
+            "px-2.5 py-1 rounded-full transition " +
+            (lang === l
+              ? "bg-primary/85 text-white shadow"
+              : "text-soft hover:text-foreground")
+          }
+        >
+          {l.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function Hero({ t }: { t: T }) {
   return (
     <section id="top" className="relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-20 pb-24 md:pt-28 md:pb-32 grid md:grid-cols-[1.05fr_0.95fr] gap-12 items-center">
         <div className="space-y-7">
           <span className="chip">
             <span className="dot text-warning" />
-            En MODO PRUEBA · v{APP_VERSION}
+            {t.hero.chipBeta(APP_VERSION)}
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.05] tracking-tight">
-            La comunidad cubana de{" "}
-            <span className="text-gradient">Mobile Legends</span> ahora vive en una sola app.
+            {t.hero.titlePart1}{" "}
+            <span className="text-gradient">{t.hero.titleHighlight}</span>{" "}
+            {t.hero.titlePart2}
           </h1>
-          <p className="text-soft text-lg max-w-xl leading-relaxed">
-            Armá equipo, organizá partidas, hablá por voz y conocé a otros
-            jugadores — todo en español, sin Discord, sin VPN, hecho para
-            funcionar en Cuba.
-          </p>
-          <div className="flex flex-wrap gap-3 pt-2">
+          <p className="text-soft text-lg max-w-xl leading-relaxed">{t.hero.subtitle}</p>
+          <div className="flex flex-wrap gap-3 pt-2 items-stretch">
             <a href={APK_DOWNLOAD_URL} className="btn-primary animate-pulse-glow">
               <IconAndroid className="w-5 h-5" />
-              Descargar APK · Android
+              {t.hero.ctaDownload}
             </a>
+            <span
+              aria-disabled="true"
+              className="relative inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-border bg-surface-2/70 text-foreground select-none cursor-default"
+            >
+              <IconGooglePlay className="w-7 h-7 text-emerald-400 shrink-0" />
+              <span className="flex flex-col leading-tight text-left">
+                <span className="text-[10px] uppercase tracking-[0.18em] text-emerald-400 font-bold">
+                  {t.hero.playStoreSoonTop}
+                </span>
+                <span className="text-base font-bold tracking-tight">
+                  {t.hero.playStoreSoonBottom}
+                </span>
+              </span>
+            </span>
             <a href="#features" className="btn-secondary">
               <IconSparkles className="w-5 h-5" />
-              Ver características
+              {t.hero.ctaFeatures}
             </a>
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-3 text-xs text-muted">
-            <Bullet>100% gratis</Bullet>
-            <Bullet>Sin anuncios</Bullet>
-            <Bullet>Push sin VPN (Pushy)</Bullet>
-            <Bullet>Hecho por la comunidad</Bullet>
+            {t.hero.bullets.map((b) => (
+              <Bullet key={b}>{b}</Bullet>
+            ))}
           </div>
         </div>
 
         <div className="relative">
-          <div className="absolute inset-0 -z-10 blur-3xl opacity-60 bg-gradient-to-tr from-primary/40 via-accent/30 to-pink-500/20 rounded-[40px]" />
-          <div className="card p-3 md:p-4 rotate-[1.5deg] animate-float-slow">
+          <div className="absolute inset-0 -z-10 blur-3xl opacity-70 bg-gradient-to-tr from-primary/40 via-accent/30 to-pink-500/20 rounded-full" />
+          <div className="relative grid place-items-center">
             <Image
-              src="/brand/banner.png"
-              alt="Vista previa de la app"
-              width={1200}
-              height={450}
-              className="rounded-xl w-full h-auto"
+              src="/brand/logo.png"
+              alt={t.meta.siteName}
+              width={620}
+              height={500}
+              className="w-full max-w-[520px] h-auto animate-float-slow drop-shadow-[0_30px_60px_rgba(99,102,241,0.45)]"
               priority
             />
           </div>
-          <div className="absolute -bottom-6 -left-4 md:-left-10 card p-3 w-[210px] hidden sm:block">
+          <div className="absolute -bottom-2 -left-2 md:-left-6 card p-3 w-[210px] hidden sm:block">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-success/15 border border-success/40 grid place-items-center text-success">
                 <IconUsers className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-[11px] text-muted uppercase tracking-wider">En línea</p>
-                <p className="text-foreground font-bold leading-tight">132 jugadores</p>
+                <p className="text-[11px] text-muted uppercase tracking-wider">
+                  {t.hero.cardOnlineLabel}
+                </p>
+                <p className="text-foreground font-bold leading-tight">
+                  {t.hero.cardOnlineValue}
+                </p>
               </div>
             </div>
           </div>
-          <div className="absolute -top-5 -right-3 md:-right-8 card p-3 w-[230px] hidden sm:block">
+          <div className="absolute -top-2 -right-1 md:-right-6 card p-3 w-[230px] hidden sm:block">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-primary/15 border border-primary/40 grid place-items-center text-primary">
                 <IconMic className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-[11px] text-muted uppercase tracking-wider">Sala de voz</p>
-                <p className="text-foreground font-bold leading-tight">5 hablando ahora</p>
+                <p className="text-[11px] text-muted uppercase tracking-wider">
+                  {t.hero.cardVoiceLabel}
+                </p>
+                <p className="text-foreground font-bold leading-tight">
+                  {t.hero.cardVoiceValue}
+                </p>
               </div>
             </div>
           </div>
@@ -240,76 +317,94 @@ function Bullet({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Features() {
-  const items = [
-    {
-      icon: <IconSearch className="w-5 h-5" />,
-      title: "Encontrá jugadores",
-      desc: "Buscá por nick, rol, rank o estado. Marcá amigos y aparecen primero. Tocá WhatsApp y abre el chat directo.",
-      color: "from-blue-500/20 to-indigo-500/10",
-    },
-    {
-      icon: <IconShield className="w-5 h-5" />,
-      title: "Armá tu equipo",
-      desc: "Crear casual, ranked, coliseo o competitivo. Aceptás solicitudes, invitás desde el perfil y cada equipo tiene su chat propio.",
-      color: "from-purple-500/20 to-pink-500/10",
-    },
-    {
-      icon: <IconCalendar className="w-5 h-5" />,
-      title: "Organizá partidas",
-      desc: "Definí horario, capacidad y rango de rank. Si compartís equipo con alguien, te unís automático. Se agrega al calendario del teléfono.",
-      color: "from-emerald-500/20 to-teal-500/10",
-    },
-    {
-      icon: <IconMic className="w-5 h-5" />,
-      title: "Chat de voz",
-      desc: "Sala propia por equipo y por partida. Funciona en segundo plano mientras jugás MLBB. Auto-mute si quedás solo.",
-      color: "from-amber-500/20 to-orange-500/10",
-    },
-    {
-      icon: <IconChat className="w-5 h-5" />,
-      title: "Chats con todo",
-      desc: "Comunidad, DMs, equipos y partidas. Imágenes, voz, menciones, formato y notificaciones push siempre que te escriben.",
-      color: "from-cyan-500/20 to-blue-500/10",
-    },
-    {
-      icon: <IconBell className="w-5 h-5" />,
-      title: "Push sin VPN",
-      desc: "Usamos Pushy, que funciona en Cuba sin saltar la red. Te llega cuando te invitan, te aceptan o te mencionan.",
-      color: "from-rose-500/20 to-red-500/10",
-    },
-    {
-      icon: <IconStar className="w-5 h-5" />,
-      title: "Mains y perfil real",
-      desc: "Hasta 6 héroes mains, rol principal y secundarios, rank actual. Tu Player ID y Server ID copiables con un toque.",
-      color: "from-yellow-500/20 to-amber-500/10",
-    },
-    {
-      icon: <IconUpdate className="w-5 h-5" />,
-      title: "Updates dentro de la app",
-      desc: "Cuando sacamos versión nueva, te avisa con un modal y la descargás e instalás directo. No tenés que buscar el APK por afuera.",
-      color: "from-fuchsia-500/20 to-purple-500/10",
-    },
-  ];
+function Games({ t }: { t: T }) {
+  return (
+    <section id="games" className="relative py-20 md:py-28">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <SectionHeader
+          eyebrow={t.games.eyebrow}
+          title={
+            <>
+              {t.games.titlePart1}{" "}
+              <span className="text-gradient">{t.games.titleHighlight}</span>{" "}
+              {t.games.titlePart2}
+            </>
+          }
+          subtitle={t.games.subtitle}
+        />
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-12">
+          {t.games.items.map((g) => (
+            <div
+              key={g.name}
+              className="card card-hover p-4 relative overflow-hidden"
+            >
+              <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full blur-2xl pointer-events-none bg-gradient-to-br from-primary/30 to-accent/20" />
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-9 h-9 rounded-lg bg-surface-2 border border-border grid place-items-center text-primary">
+                  <IconController className="w-4 h-4" />
+                </div>
+                <span
+                  className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border bg-success/15 text-success border-success/40"
+                  aria-label={t.games.liveLabel}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
+                  {t.games.liveLabel}
+                </span>
+              </div>
+              <p className="text-foreground font-bold text-sm leading-tight">{g.name}</p>
+              <p className="text-muted text-xs mt-0.5">{g.tag}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
+function Features({ t }: { t: T }) {
+  const icons = [
+    <IconSearch key="search" className="w-5 h-5" />,
+    <IconShield key="shield" className="w-5 h-5" />,
+    <IconCalendar key="cal" className="w-5 h-5" />,
+    <IconMic key="mic" className="w-5 h-5" />,
+    <IconChat key="chat" className="w-5 h-5" />,
+    <IconBell key="bell" className="w-5 h-5" />,
+    <IconStar key="star" className="w-5 h-5" />,
+    <IconUpdate key="update" className="w-5 h-5" />,
+  ];
+  const colors = [
+    "from-blue-500/20 to-indigo-500/10",
+    "from-purple-500/20 to-pink-500/10",
+    "from-emerald-500/20 to-teal-500/10",
+    "from-amber-500/20 to-orange-500/10",
+    "from-cyan-500/20 to-blue-500/10",
+    "from-rose-500/20 to-red-500/10",
+    "from-yellow-500/20 to-amber-500/10",
+    "from-fuchsia-500/20 to-purple-500/10",
+  ];
   return (
     <section id="features" className="relative py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <SectionHeader
-          eyebrow="Todo en una sola app"
-          title={<>Diseñada para la realidad <span className="text-gradient">de jugar en Cuba</span></>}
-          subtitle="Sin saltar entre Discord, WhatsApp y los grupos. Acá tenés todo lo que necesitás para coordinar y jugar."
+          eyebrow={t.features.eyebrow}
+          title={
+            <>
+              {t.features.titlePart1}{" "}
+              <span className="text-gradient">{t.features.titleHighlight}</span>
+            </>
+          }
+          subtitle={t.features.subtitle}
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-14">
-          {items.map((it) => (
+          {t.features.items.map((it, i) => (
             <div key={it.title} className="card card-hover p-5 relative overflow-hidden">
-              <div className={`absolute -top-12 -right-12 w-40 h-40 rounded-full bg-gradient-to-br ${it.color} blur-2xl pointer-events-none`} />
+              <div
+                className={`absolute -top-12 -right-12 w-40 h-40 rounded-full bg-gradient-to-br ${colors[i]} blur-2xl pointer-events-none`}
+              />
               <div className="w-10 h-10 rounded-xl bg-surface-2 border border-border grid place-items-center text-primary mb-4">
-                {it.icon}
+                {icons[i]}
               </div>
-              <h3 className="text-foreground font-semibold text-[17px] mb-1.5">
-                {it.title}
-              </h3>
+              <h3 className="text-foreground font-semibold text-[17px] mb-1.5">{it.title}</h3>
               <p className="text-soft text-sm leading-relaxed">{it.desc}</p>
             </div>
           ))}
@@ -330,53 +425,33 @@ function SectionHeader({
 }) {
   return (
     <div className="text-center max-w-2xl mx-auto">
-      <p className="text-primary text-xs font-bold uppercase tracking-[0.18em] mb-3">
-        {eyebrow}
-      </p>
-      <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
-        {title}
-      </h2>
-      {subtitle ? (
-        <p className="text-soft mt-4 leading-relaxed">{subtitle}</p>
-      ) : null}
+      <p className="text-primary text-xs font-bold uppercase tracking-[0.18em] mb-3">{eyebrow}</p>
+      <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">{title}</h2>
+      {subtitle ? <p className="text-soft mt-4 leading-relaxed">{subtitle}</p> : null}
     </div>
   );
 }
 
-function Showcase() {
-  const steps = [
-    {
-      n: "01",
-      title: "Creá tu perfil",
-      desc: "Foto, MLBB Nickname, Player ID, rol principal, mains y rank. Tu WhatsApp es opcional, pero hace que te contacten en un toque.",
-    },
-    {
-      n: "02",
-      title: "Encontrá gente y armá equipo",
-      desc: "Filtrá por rol o por amigos. Mandás solicitud o creás tu propio equipo en casual, ranked o coliseo.",
-    },
-    {
-      n: "03",
-      title: "Programá la partida",
-      desc: "Capacidad 5/7/10, link de la sala, rango de rank permitido. Compartís por WhatsApp y se agrega al calendario.",
-    },
-    {
-      n: "04",
-      title: "Hablá por voz mientras jugás",
-      desc: "Cada partida tiene su sala. Sigue funcionando con la pantalla apagada y la app en segundo plano.",
-    },
-  ];
+function Showcase({ t }: { t: T }) {
   return (
     <section id="showcase" className="relative py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <SectionHeader
-          eyebrow="Cómo funciona"
-          title={<>De &ldquo;¿alguien para jugar?&rdquo; a <span className="text-gradient">partida en marcha</span> en minutos</>}
+          eyebrow={t.showcase.eyebrow}
+          title={
+            <>
+              {t.showcase.titlePart1}{" "}
+              <span className="text-gradient">{t.showcase.titleHighlight}</span>{" "}
+              {t.showcase.titlePart2}
+            </>
+          }
         />
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-14">
-          {steps.map((s) => (
-            <div key={s.n} className="card card-hover p-5">
-              <p className="text-gradient text-2xl font-extrabold mb-2">{s.n}</p>
+          {t.showcase.steps.map((s, i) => (
+            <div key={s.title} className="card card-hover p-5">
+              <p className="text-gradient text-2xl font-extrabold mb-2">
+                {String(i + 1).padStart(2, "0")}
+              </p>
               <h3 className="text-foreground font-semibold mb-1.5">{s.title}</h3>
               <p className="text-soft text-sm leading-relaxed">{s.desc}</p>
             </div>
@@ -387,14 +462,7 @@ function Showcase() {
   );
 }
 
-function Voice() {
-  const voiceUsers = [
-    { name: "Alex_Mythic", role: "Jungler", talking: true },
-    { name: "Sofia_GG", role: "Gold Laner", talking: false },
-    { name: "ElCapi", role: "Mid Laner", talking: true },
-    { name: "Yaniris", role: "Roamer", talking: false },
-    { name: "Reyhd", role: "EXP Laner", talking: false },
-  ];
+function Voice({ t }: { t: T }) {
   return (
     <section id="voice" className="relative py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
@@ -404,43 +472,46 @@ function Voice() {
           <div className="relative">
             <span className="chip mb-5">
               <IconMic className="w-3.5 h-3.5" />
-              Voz integrada
+              {t.voice.chip}
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
-              Una sala de voz por <span className="text-gradient">cada equipo y cada partida</span>.
+              {t.voice.titlePart1}{" "}
+              <span className="text-gradient">{t.voice.titleHighlight}</span>.
             </h2>
-            <p className="text-soft mt-4 leading-relaxed">
-              Hablá con tu squad sin tener que abrir otra app. La sala sigue
-              activa con la pantalla apagada, y si quedás solo 3 minutos te
-              desconecta automáticamente para no quemar batería ni datos.
-            </p>
+            <p className="text-soft mt-4 leading-relaxed">{t.voice.subtitle}</p>
             <ul className="mt-6 space-y-3 text-soft">
-              <li className="flex gap-3"><IconCheck className="w-5 h-5 text-success mt-0.5" /> Mini banner para volver mientras hacés otra cosa</li>
-              <li className="flex gap-3"><IconCheck className="w-5 h-5 text-success mt-0.5" /> Mute y colgar siempre a la vista</li>
-              <li className="flex gap-3"><IconCheck className="w-5 h-5 text-success mt-0.5" /> Contador en vivo de quién está adentro</li>
+              {t.voice.bullets.map((b) => (
+                <li key={b} className="flex gap-3">
+                  <IconCheck className="w-5 h-5 text-success mt-0.5" /> {b}
+                </li>
+              ))}
             </ul>
-            <p className="mt-6 text-xs text-muted leading-relaxed">
-              En algunos Xiaomi/Huawei/OPPO conviene activar <em>Inicio
-              automático</em> y <em>Sin restricción de batería</em> en
-              Configuración → Apps → MLBB Mythic Lobby.
-            </p>
+            <p className="mt-6 text-xs text-muted leading-relaxed">{t.voice.deviceNote}</p>
           </div>
           <div className="relative">
             <div className="card p-5 space-y-3 bg-[rgba(5,7,14,0.55)]">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs text-muted uppercase tracking-wider">Sala de voz</p>
-                  <p className="text-foreground font-bold">Coliseo · 21:00</p>
+                  <p className="text-xs text-muted uppercase tracking-wider">
+                    {t.voice.roomLabel}
+                  </p>
+                  <p className="text-foreground font-bold">{t.voice.roomTitle}</p>
                 </div>
                 <span className="chip text-success bg-success/15 border-success/30">
                   <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-                  En vivo
+                  {t.voice.liveLabel}
                 </span>
               </div>
               <div className="divider" />
-              {voiceUsers.map((u, i) => (
+              {t.voice.users.map((u, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <div className={`w-9 h-9 rounded-full grid place-items-center text-foreground font-bold text-sm ${u.talking ? "bg-primary/25 ring-2 ring-primary" : "bg-surface-2 ring-1 ring-border"}`}>
+                  <div
+                    className={`w-9 h-9 rounded-full grid place-items-center text-foreground font-bold text-sm ${
+                      u.talking
+                        ? "bg-primary/25 ring-2 ring-primary"
+                        : "bg-surface-2 ring-1 ring-border"
+                    }`}
+                  >
                     {u.name[0]}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -453,10 +524,10 @@ function Voice() {
               <div className="divider" />
               <div className="flex gap-2 pt-1">
                 <button className="flex-1 btn-secondary text-sm py-2">
-                  <IconMic className="w-4 h-4" /> Mute
+                  <IconMic className="w-4 h-4" /> {t.voice.muteBtn}
                 </button>
                 <button className="flex-1 text-sm py-2 px-3 rounded-xl bg-danger/15 border border-danger/40 text-danger font-semibold flex items-center justify-center gap-2">
-                  <IconHangup className="w-4 h-4" /> Colgar
+                  <IconHangup className="w-4 h-4" /> {t.voice.hangupBtn}
                 </button>
               </div>
             </div>
@@ -467,39 +538,35 @@ function Voice() {
   );
 }
 
-function Donate() {
-  const methods = [
-    { label: "USDT", sub: "TRC-20" },
-    { label: "BTC", sub: "On-chain" },
-    { label: "Lightning", sub: "BTC LN" },
-    { label: "Otras", sub: "Cripto / app" },
-  ];
+function Donate({ t }: { t: T }) {
   return (
     <section id="donate" className="relative py-20 md:py-28">
       <div className="max-w-5xl mx-auto px-5 sm:px-8">
         <div className="card p-8 md:p-12 text-center relative overflow-hidden">
           <div className="absolute inset-0 -z-0 opacity-60 bg-gradient-to-br from-primary/15 via-transparent to-accent/15" />
           <div className="relative">
-            <span className="chip mx-auto"><IconHeart className="w-3.5 h-3.5 text-rose-400" /> Apoyo voluntario</span>
+            <span className="chip mx-auto">
+              <IconHeart className="w-3.5 h-3.5 text-rose-400" /> {t.donate.chip}
+            </span>
             <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mt-4">
-              Esta app la <span className="text-gradient">sostiene la comunidad</span>.
+              {t.donate.titlePart1}{" "}
+              <span className="text-gradient">{t.donate.titleHighlight}</span>.
             </h2>
-            <p className="text-soft mt-4 max-w-2xl mx-auto leading-relaxed">
-              El 100% de lo que entra va a servidores, dominio, push
-              notifications y chat de voz. No hay anuncios ni venta de datos.
-              Cualquier monto ayuda a mantenerla viva.
-            </p>
+            <p className="text-soft mt-4 max-w-2xl mx-auto leading-relaxed">{t.donate.subtitle}</p>
             <div className="grid sm:grid-cols-4 gap-3 mt-8 max-w-2xl mx-auto">
-              {methods.map((m) => (
-                <div key={m.label} className="card-hover bg-surface-2 border border-border rounded-xl px-4 py-3">
+              {t.donate.methods.map((m) => (
+                <div
+                  key={m.label}
+                  className="card-hover bg-surface-2 border border-border rounded-xl px-4 py-3"
+                >
                   <p className="text-foreground font-bold">{m.label}</p>
                   <p className="text-muted text-xs">{m.sub}</p>
                 </div>
               ))}
             </div>
             <p className="text-xs text-muted mt-6">
-              Las direcciones exactas están dentro de la app, en{" "}
-              <span className="text-foreground">Perfil → Apoyar</span>.
+              {t.donate.footnote1}{" "}
+              <span className="text-foreground">{t.donate.footnoteLink}</span>.
             </p>
           </div>
         </div>
@@ -508,13 +575,13 @@ function Donate() {
   );
 }
 
-function FAQ() {
+function FAQ({ t }: { t: T }) {
   return (
     <section id="faq" className="relative py-20 md:py-28">
       <div className="max-w-3xl mx-auto px-5 sm:px-8">
-        <SectionHeader eyebrow="Preguntas frecuentes" title={<>Lo que más nos preguntan</>} />
+        <SectionHeader eyebrow={t.faq.eyebrow} title={t.faq.title} />
         <div className="mt-12 space-y-3">
-          {FAQ_ITEMS.map((item, i) => (
+          {t.faq.items.map((item, i) => (
             <details
               key={i}
               className="card group p-5 [&_summary::-webkit-details-marker]:hidden"
@@ -534,24 +601,78 @@ function FAQ() {
   );
 }
 
-function CallToAction() {
+function Partnership({ t }: { t: T }) {
+  const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+    t.partnership.emailSubject
+  )}&body=${encodeURIComponent(t.partnership.emailBody)}`;
+  return (
+    <section id="partnership" className="relative py-14 md:py-20">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <div className="partnership-wrap relative rounded-[24px] p-[1.5px] overflow-hidden">
+          <div className="relative rounded-[22px] bg-[rgba(5,7,14,0.92)] overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/25 via-accent/20 to-pink-500/15 pointer-events-none" />
+            <div className="absolute -top-40 -left-32 w-[28rem] h-[28rem] rounded-full bg-primary/30 blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-40 -right-32 w-[28rem] h-[28rem] rounded-full bg-accent/30 blur-3xl pointer-events-none" />
+            <div className="relative p-8 md:p-14 grid md:grid-cols-[1.2fr_auto] gap-10 items-center">
+              <div>
+                <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] px-3 py-1.5 rounded-full bg-warning/15 border border-warning/40 text-warning">
+                  <IconHandshake className="w-3.5 h-3.5" />
+                  {t.partnership.eyebrow}
+                </span>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mt-5 leading-[1.05]">
+                  {t.partnership.titlePart1}{" "}
+                  <span className="text-gradient">{t.partnership.titleHighlight}</span>
+                </h2>
+                <p className="text-soft mt-5 leading-relaxed max-w-2xl text-lg">
+                  {t.partnership.subtitle}
+                </p>
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {t.partnership.segments.map((s) => (
+                    <span
+                      key={s}
+                      className="text-xs font-semibold px-3 py-1.5 rounded-full bg-surface-2/80 border border-border text-soft"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+                <p className="text-xs text-muted mt-6">
+                  {t.partnership.emailLabel}{" "}
+                  <a
+                    href={mailto}
+                    className="text-foreground font-semibold hover:text-primary transition break-all"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                </p>
+              </div>
+              <div className="flex md:justify-end">
+                <a href={mailto} className="btn-primary text-base px-6 py-4 animate-pulse-glow shrink-0">
+                  <IconMail className="w-5 h-5" />
+                  {t.partnership.button}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CallToAction({ t }: { t: T }) {
   return (
     <section className="relative py-20 md:py-28">
       <div className="max-w-4xl mx-auto px-5 sm:px-8">
         <div className="card p-10 md:p-14 text-center relative overflow-hidden">
           <div className="absolute inset-0 -z-0 bg-gradient-to-br from-primary/15 via-accent/10 to-transparent" />
           <div className="relative">
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-              Listo para jugar con la comunidad.
-            </h2>
-            <p className="text-soft mt-3 max-w-xl mx-auto">
-              Descargá la app, creá tu perfil y empezá a armar partidas en
-              minutos.
-            </p>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">{t.cta.title}</h2>
+            <p className="text-soft mt-3 max-w-xl mx-auto">{t.cta.subtitle}</p>
             <div className="flex justify-center mt-7">
               <a href={APK_DOWNLOAD_URL} className="btn-primary">
                 <IconAndroid className="w-5 h-5" />
-                Descargar APK
+                {t.cta.button}
               </a>
             </div>
           </div>
@@ -561,7 +682,7 @@ function CallToAction() {
   );
 }
 
-function Footer() {
+function Footer({ t }: { t: T }) {
   const year = new Date().getFullYear();
   return (
     <footer className="border-t border-border/60 mt-10 py-10">
@@ -569,17 +690,16 @@ function Footer() {
         <div className="flex items-center gap-2.5">
           <Image
             src="/brand/icon.png"
-            alt="MLBB Mythic Lobby"
-            width={28}
-            height={28}
+            alt={t.meta.siteName}
+            width={32}
+            height={32}
             className="rounded-md"
           />
-          <p className="text-soft">MLBB Mythic Lobby · {year}</p>
+          <p className="text-soft">
+            {t.meta.siteName} · {year}
+          </p>
         </div>
-        <p className="text-center md:text-right max-w-md leading-relaxed">
-          Proyecto comunitario sin afiliación a Moonton ni Mobile Legends:
-          Bang Bang. Todas las marcas son de sus respectivos dueños.
-        </p>
+        <p className="text-center md:text-right max-w-md leading-relaxed">{t.footer.disclaimer}</p>
       </div>
     </footer>
   );
@@ -710,6 +830,40 @@ function IconPlus({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 5v14" /><path d="M5 12h14" />
+    </svg>
+  );
+}
+function IconGooglePlay({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+      <path d="M3.6 2.3a1 1 0 0 0-.6.9v17.6c0 .4.2.7.5.9l9.2-9.7L3.6 2.3Zm10.2 10.8 2.7 2.8-9 5.2 6.3-8Zm0-2.2-6.3-8 9 5.2-2.7 2.8Zm6.6 1.1L17.7 14l-2.3-2.4 2.3-2.4 2.7 1.6c.8.5.8 1.5 0 2Z" />
+    </svg>
+  );
+}
+function IconHandshake({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m11 17 2 2 4-4" />
+      <path d="m21 11-8.5-8.5a1 1 0 0 0-1.4 0L9 5l4 4-3 3-4-4-3 3 8.5 8.5a1 1 0 0 0 1.4 0L15 17l-4-4 3-3 4 4 3-3Z" />
+    </svg>
+  );
+}
+function IconMail({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  );
+}
+function IconController({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 11h4" />
+      <path d="M8 9v4" />
+      <circle cx="15" cy="12" r="1" />
+      <circle cx="18" cy="10" r="1" />
+      <path d="M17 6H7a5 5 0 0 0-5 5v2a5 5 0 0 0 9.5 2h1A5 5 0 0 0 22 13v-2a5 5 0 0 0-5-5Z" />
     </svg>
   );
 }
