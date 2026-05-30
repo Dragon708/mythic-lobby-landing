@@ -29,6 +29,30 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Documentos legales (Privacidad / Términos)
+
+Las páginas públicas `/privacy` y `/terms` renderizan, respectivamente,
+[`PRIVACY-POLICY.md`](PRIVACY-POLICY.md) y [`TERMS-OF-SERVICE.md`](TERMS-OF-SERVICE.md)
+ubicados en la raíz de este repo (`src/app/privacy/page.tsx` y
+`src/app/terms/page.tsx` los leen al hacer build).
+
+> **⚠️ Estos dos `.md` son una COPIA.** No son la fuente de verdad.
+>
+> - Origen: se sincronizan desde `mythic-lobby/Docs/PRIVACY-POLICY.md` y
+>   `mythic-lobby/Docs/TERMS-OF-SERVICE.md` (repo de la app móvil).
+> - **Fuente de verdad real:** `lib/legal-content.ts` en el repo `mythic-lobby`.
+>   Es desde ahí que se generan los `.md` y se alimenta el viewer interno de la
+>   app.
+>
+> Si el contenido legal cambia, editá `lib/legal-content.ts` en `mythic-lobby`,
+> regenerá los `.md` y volvé a copiarlos acá. No edites estas copias a mano sin
+> reflejar el cambio en la fuente, o quedarán desincronizadas.
+
+El renderizador de markdown (`src/lib/markdown.tsx`) soporta solo el subconjunto
+que usan esos documentos (encabezados, listas con guiones, **negrita**, `código`,
+*itálica*, [enlaces](#) y divisores `---`). Si los docs empiezan a usar features
+nuevas (tablas, listas anidadas, imágenes), hay que extenderlo.
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

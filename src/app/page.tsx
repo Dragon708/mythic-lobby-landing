@@ -4,17 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { STRINGS, type Lang } from "@/lib/strings";
+import { IndependenceNotice } from "@/app/_components/independence-notice";
 
 const APK_DOWNLOAD_URL =
   process.env.NEXT_PUBLIC_APK_URL ??
-  "https://github.com/Dragon708/mlbb-landing/releases/latest/download/mlbb-mythic-lobby.apk";
+  "https://github.com/Dragon708/mythic-lobby-landing/releases/latest/download/mythic-lobby-android.apk";
 const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0";
 const CONTACT_EMAIL = "jorgegmdgonzalez@gmail.com";
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "https://mlbb-landing.vercel.app");
+    : "https://mythic-lobby.vercel.app");
 
 const STORAGE_KEY = "ml.lang";
 
@@ -686,20 +687,30 @@ function Footer({ t }: { t: T }) {
   const year = new Date().getFullYear();
   return (
     <footer className="border-t border-border/60 mt-10 py-10">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-muted">
-        <div className="flex items-center gap-2.5">
-          <Image
-            src="/brand/icon.png"
-            alt={t.meta.siteName}
-            width={32}
-            height={32}
-            className="rounded-md"
-          />
-          <p className="text-soft">
-            {t.meta.siteName} · {year}
-          </p>
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 space-y-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-muted">
+          <div className="flex items-center gap-2.5">
+            <Image
+              src="/brand/icon.png"
+              alt={t.meta.siteName}
+              width={32}
+              height={32}
+              className="rounded-md"
+            />
+            <p className="text-soft">
+              {t.meta.siteName} · {year}
+            </p>
+          </div>
+          <nav className="flex items-center gap-5">
+            <Link href="/privacy" className="text-soft hover:text-foreground transition">
+              {t.footer.privacyLink}
+            </Link>
+            <Link href="/terms" className="text-soft hover:text-foreground transition">
+              {t.footer.termsLink}
+            </Link>
+          </nav>
         </div>
-        <p className="text-center md:text-right max-w-md leading-relaxed">{t.footer.disclaimer}</p>
+        <IndependenceNotice className="max-w-3xl mx-auto text-center" />
       </div>
     </footer>
   );

@@ -23,7 +23,7 @@ const SITE_URL =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
-      : "https://mlbb-landing.vercel.app");
+      : "https://mythic-lobby.vercel.app");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

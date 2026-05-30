@@ -104,6 +104,8 @@ export type Strings = {
   };
   footer: {
     disclaimer: string;
+    privacyLink: string;
+    termsLink: string;
   };
   jsonLd: {
     description: string;
@@ -321,6 +323,8 @@ export const STRINGS: Record<Lang, Strings> = {
     footer: {
       disclaimer:
         "Proyecto comunitario independiente. Sin afiliación con ningún publisher de videojuegos. Todas las marcas pertenecen a sus respectivos dueños.",
+      privacyLink: "Política de privacidad",
+      termsLink: "Términos de servicio",
     },
     jsonLd: {
       description:
@@ -538,6 +542,8 @@ export const STRINGS: Record<Lang, Strings> = {
     footer: {
       disclaimer:
         "Independent community project. Not affiliated with any game publisher. All trademarks belong to their respective owners.",
+      privacyLink: "Privacy Policy",
+      termsLink: "Terms of Service",
     },
     jsonLd: {
       description:

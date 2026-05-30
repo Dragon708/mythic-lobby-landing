@@ -3,10 +3,10 @@
 La landing apunta por default a:
 
 ```
-https://github.com/Dragon708/mlbb-landing/releases/latest/download/mlbb-mythic-lobby.apk
+https://github.com/Dragon708/mythic-lobby-landing/releases/latest/download/mythic-lobby-android.apk
 ```
 
-GitHub resuelve `/releases/latest/...` siempre al release más nuevo, así que **no hace falta tocar la landing ni redeplegar Vercel** cuando sale build nueva. Sólo subís un release nuevo con el asset llamado `mlbb-mythic-lobby.apk`.
+GitHub resuelve `/releases/latest/...` siempre al release más nuevo, así que **no hace falta tocar la landing ni redeplegar Vercel** cuando sale build nueva. Sólo subís un release nuevo con el asset llamado `mythic-lobby-android.apk`.
 
 ## Pasos para una versión nueva
 
@@ -37,14 +37,14 @@ $VERSION = "1.0.1"
 $APK = "../mythic-lobby/android/app/build/outputs/apk/release/MLBB Mythic Lobby.apk"
 
 # Copialo con el nombre canónico que espera la landing
-Copy-Item $APK "./mlbb-mythic-lobby.apk"
+Copy-Item $APK "./mythic-lobby-android.apk"
 
-gh release create "v$VERSION" "./mlbb-mythic-lobby.apk" `
-  --repo Dragon708/mlbb-landing `
+gh release create "v$VERSION" "./mythic-lobby-android.apk" `
+  --repo Dragon708/mythic-lobby-landing `
   --title "v$VERSION" `
   --notes "Changelog…"
 
-Remove-Item "./mlbb-mythic-lobby.apk"
+Remove-Item "./mythic-lobby-android.apk"
 ```
 
 ### 4. Bumpear `NEXT_PUBLIC_APP_VERSION` en Vercel (opcional)
@@ -64,5 +64,5 @@ La app móvil chequea Supabase Storage `app-releases/` para mostrar el modal de 
 Las URLs `releases/latest/download/...` **sólo son accesibles si el repo es público**. Si lo dejás privado, la descarga desde la landing va a dar 404 para usuarios sin sesión de GitHub.
 
 Opciones:
-- **A** (recomendado): `gh repo edit Dragon708/mlbb-landing --visibility public --accept-visibility-change-consequences`
+- **A** (recomendado): `gh repo edit Dragon708/mythic-lobby-landing --visibility public --accept-visibility-change-consequences`
 - **B**: Mantenerlo privado y servir el APK desde Supabase Storage. Cambiá `NEXT_PUBLIC_APK_URL` en Vercel a la URL del bucket.
