@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import { STRINGS, type Lang } from "@/lib/strings";
 import { IndependenceNotice } from "@/app/_components/independence-notice";
 
-const APK_DOWNLOAD_URL =
-  process.env.NEXT_PUBLIC_APK_URL ??
-  "https://github.com/Dragon708/mythic-lobby-landing/releases/latest/download/mythic-lobby-android.apk";
+const PLAY_STORE_URL =
+  process.env.NEXT_PUBLIC_PLAY_STORE_URL ??
+  "https://play.google.com/store/apps/details?id=com.mythiclobby.app";
 const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0";
 const CONTACT_EMAIL = "jorgegmdgonzalez@gmail.com";
 const SITE_URL =
@@ -101,8 +101,8 @@ function StructuredData({ lang }: { lang: Lang }) {
       applicationSubCategory: "Community",
       inLanguage: lang,
       softwareVersion: APP_VERSION,
-      downloadUrl: APK_DOWNLOAD_URL,
-      installUrl: APK_DOWNLOAD_URL,
+      downloadUrl: PLAY_STORE_URL,
+      installUrl: PLAY_STORE_URL,
       fileSize: "110MB",
       description: t.jsonLd.mobileAppDescription,
       offers: {
@@ -170,8 +170,13 @@ function NavBar({ lang, setLang, t }: { lang: Lang; setLang: (l: Lang) => void; 
         </nav>
         <div className="flex items-center gap-2">
           <LanguageSwitcher lang={lang} setLang={setLang} label={t.nav.languageLabel} />
-          <a href={APK_DOWNLOAD_URL} className="btn-primary text-sm py-2.5 px-4">
-            <IconDownload className="w-4 h-4" />
+          <a
+            href={PLAY_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-sm py-2.5 px-4"
+          >
+            <IconGooglePlay className="w-4 h-4" />
             <span className="hidden sm:inline">{t.nav.download}</span>
           </a>
         </div>
@@ -231,24 +236,22 @@ function Hero({ t }: { t: T }) {
           </h1>
           <p className="text-soft text-lg max-w-xl leading-relaxed">{t.hero.subtitle}</p>
           <div className="flex flex-wrap gap-3 pt-2 items-stretch">
-            <a href={APK_DOWNLOAD_URL} className="btn-primary animate-pulse-glow">
-              <IconAndroid className="w-5 h-5" />
-              {t.hero.ctaDownload}
-            </a>
-            <span
-              aria-disabled="true"
-              className="relative inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-border bg-surface-2/70 text-foreground select-none cursor-default"
+            <a
+              href={PLAY_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-emerald-400/50 bg-surface-2/70 text-foreground hover:border-emerald-400 transition animate-pulse-glow"
             >
               <IconGooglePlay className="w-7 h-7 text-emerald-400 shrink-0" />
               <span className="flex flex-col leading-tight text-left">
                 <span className="text-[10px] uppercase tracking-[0.18em] text-emerald-400 font-bold">
-                  {t.hero.playStoreSoonTop}
+                  {t.hero.playStoreTop}
                 </span>
                 <span className="text-base font-bold tracking-tight">
-                  {t.hero.playStoreSoonBottom}
+                  {t.hero.playStoreBottom}
                 </span>
               </span>
-            </span>
+            </a>
             <a href="#features" className="btn-secondary">
               <IconSparkles className="w-5 h-5" />
               {t.hero.ctaFeatures}
@@ -671,8 +674,13 @@ function CallToAction({ t }: { t: T }) {
             <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">{t.cta.title}</h2>
             <p className="text-soft mt-3 max-w-xl mx-auto">{t.cta.subtitle}</p>
             <div className="flex justify-center mt-7">
-              <a href={APK_DOWNLOAD_URL} className="btn-primary">
-                <IconAndroid className="w-5 h-5" />
+              <a
+                href={PLAY_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary"
+              >
+                <IconGooglePlay className="w-5 h-5" />
                 {t.cta.button}
               </a>
             </div>
@@ -718,20 +726,6 @@ function Footer({ t }: { t: T }) {
 
 type IconProps = { className?: string };
 
-function IconDownload({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 3v12" /><path d="m7 10 5 5 5-5" /><path d="M5 21h14" />
-    </svg>
-  );
-}
-function IconAndroid({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
-      <path d="M17.6 9.5 19 7.3a.6.6 0 0 0-1-.6L16.4 9c-1.3-.6-2.8-1-4.4-1s-3.1.4-4.4 1L6 6.7a.6.6 0 1 0-1 .6l1.4 2.2C5 10.8 4 12.7 4 14.8h16c0-2.1-1-4-2.4-5.3ZM8.5 13a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8Zm7 0a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8ZM4 15.8v3.4c0 .7.6 1.3 1.3 1.3h.4v2c0 .5.4.9.9.9s.9-.4.9-.9v-2h8.9v2c0 .5.4.9.9.9s.9-.4.9-.9v-2h.4c.7 0 1.3-.6 1.3-1.3v-3.4H4ZM2.7 10c-.7 0-1.2.6-1.2 1.3v5.4c0 .7.5 1.3 1.2 1.3.8 0 1.3-.6 1.3-1.3v-5.4c0-.7-.5-1.3-1.3-1.3Zm18.6 0c-.7 0-1.3.6-1.3 1.3v5.4c0 .7.6 1.3 1.3 1.3s1.2-.6 1.2-1.3v-5.4c0-.7-.5-1.3-1.2-1.3Z"/>
-    </svg>
-  );
-}
 function IconSparkles({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

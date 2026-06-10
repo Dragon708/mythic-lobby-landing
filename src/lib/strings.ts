@@ -27,8 +27,8 @@ export type Strings = {
     subtitle: string;
     ctaDownload: string;
     ctaFeatures: string;
-    playStoreSoonTop: string;
-    playStoreSoonBottom: string;
+    playStoreTop: string;
+    playStoreBottom: string;
     bullets: string[];
     cardOnlineLabel: string;
     cardOnlineValue: string;
@@ -139,10 +139,10 @@ export const STRINGS: Record<Lang, Strings> = {
       titlePart2: "En cualquier rank.",
       subtitle:
         "El lobby global donde gamers se conectan para ranked, clan wars y scrims. Filtrá por rank, rol, horario y región. Voz integrada por partida. Sin Discord.",
-      ctaDownload: "Descargar APK · Android",
+      ctaDownload: "Descargar en Google Play",
       ctaFeatures: "Ver características",
-      playStoreSoonTop: "Pronto en",
-      playStoreSoonBottom: "Google Play",
+      playStoreTop: "Disponible en",
+      playStoreBottom: "Google Play",
       bullets: ["100% gratis", "Sin anuncios", "Notificaciones realtime", "Hecho por gamers"],
       cardOnlineLabel: "En línea",
       cardOnlineValue: "132 jugadores",
@@ -305,7 +305,7 @@ export const STRINGS: Record<Lang, Strings> = {
     cta: {
       title: "Listo para encontrar tu squad.",
       subtitle: "Descargá la app, creá tu perfil y empezá a armar partidas en minutos.",
-      button: "Descargar APK",
+      button: "Descargar en Google Play",
     },
     partnership: {
       eyebrow: "Colaboraciones",
@@ -358,10 +358,10 @@ export const STRINGS: Record<Lang, Strings> = {
       titlePart2: "Every rank.",
       subtitle:
         "The global lobby where gamers connect for ranked, clan wars and scrims. Filter by rank, role, schedule and region. Built-in voice per match. No Discord.",
-      ctaDownload: "Download APK · Android",
+      ctaDownload: "Get it on Google Play",
       ctaFeatures: "See features",
-      playStoreSoonTop: "Coming soon to",
-      playStoreSoonBottom: "Google Play",
+      playStoreTop: "Get it on",
+      playStoreBottom: "Google Play",
       bullets: ["100% free", "No ads", "Real-time notifications", "Built by gamers"],
       cardOnlineLabel: "Online",
       cardOnlineValue: "132 players",
@@ -524,7 +524,7 @@ export const STRINGS: Record<Lang, Strings> = {
     cta: {
       title: "Ready to find your squad.",
       subtitle: "Download the app, build your profile and start scheduling matches in minutes.",
-      button: "Download APK",
+      button: "Get it on Google Play",
     },
     partnership: {
       eyebrow: "Partnerships",
