@@ -155,15 +155,23 @@ export const STRINGS: Record<Lang, Strings> = {
       titleHighlight: "Todos tus juegos.",
       titlePart2: "",
       subtitle:
-        "Soporte completo desde el día uno para los 6 juegos competitivos mobile más jugados del mundo. Rank, rol, mains y stats independientes por cada uno.",
+        "Soporte completo para 14 juegos competitivos (mobile y PC). Rank, rol, mains y stats independientes por cada uno.",
       liveLabel: "Disponible",
       items: [
         { name: "Mobile Legends", tag: "MOBA 5v5" },
         { name: "Free Fire", tag: "Battle Royale" },
         { name: "COD Mobile", tag: "FPS / BR" },
+        { name: "Honor of Kings", tag: "MOBA 5v5" },
+        { name: "PUBG Mobile", tag: "Battle Royale" },
+        { name: "Blood Strike", tag: "Battle Royale" },
+        { name: "Counter-Strike 2", tag: "FPS Táctico" },
+        { name: "EA SPORTS FC Mobile", tag: "Fútbol" },
         { name: "Clash Royale", tag: "Card 1v1" },
         { name: "Clash of Clans", tag: "Clan Wars" },
-        { name: "Rise of Kingdoms", tag: "Alliance / Strategy" },
+        { name: "Rise of Kingdoms", tag: "Estrategia" },
+        { name: "Albion Online", tag: "MMORPG" },
+        { name: "Skylore", tag: "MMORPG" },
+        { name: "Neo Monsters", tag: "RPG Coleccionable" },
       ],
     },
     features: {
@@ -282,7 +290,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "¿Qué juegos están soportados?",
-          a: "Mobile Legends, Free Fire, COD Mobile, Clash Royale, Clash of Clans y Rise of Kingdoms — los 6 disponibles desde el lanzamiento, con rank, rol, mains y stats independientes por juego.",
+          a: "14 juegos: Mobile Legends, Free Fire, COD Mobile, Honor of Kings, PUBG Mobile, Blood Strike, Counter-Strike 2, EA SPORTS FC Mobile, Clash Royale, Clash of Clans, Rise of Kingdoms, Albion Online, Skylore y Neo Monsters — con rank, rol, mains y stats independientes por juego.",
         },
         {
           q: "¿Por qué solo Android por ahora?",
@@ -374,15 +382,23 @@ export const STRINGS: Record<Lang, Strings> = {
       titleHighlight: "All your games.",
       titlePart2: "",
       subtitle:
-        "Full support from day one for the 6 biggest mobile competitive games worldwide. Independent rank, role, mains and stats per game.",
+        "Full support for 14 competitive games (mobile and PC). Independent rank, role, mains and stats per game.",
       liveLabel: "Live",
       items: [
         { name: "Mobile Legends", tag: "5v5 MOBA" },
         { name: "Free Fire", tag: "Battle Royale" },
         { name: "COD Mobile", tag: "FPS / BR" },
+        { name: "Honor of Kings", tag: "5v5 MOBA" },
+        { name: "PUBG Mobile", tag: "Battle Royale" },
+        { name: "Blood Strike", tag: "Battle Royale" },
+        { name: "Counter-Strike 2", tag: "Tactical FPS" },
+        { name: "EA SPORTS FC Mobile", tag: "Football" },
         { name: "Clash Royale", tag: "1v1 Card" },
         { name: "Clash of Clans", tag: "Clan Wars" },
-        { name: "Rise of Kingdoms", tag: "Alliance / Strategy" },
+        { name: "Rise of Kingdoms", tag: "Strategy" },
+        { name: "Albion Online", tag: "MMORPG" },
+        { name: "Skylore", tag: "MMORPG" },
+        { name: "Neo Monsters", tag: "Collectible RPG" },
       ],
     },
     features: {
@@ -501,7 +517,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "Which games are supported?",
-          a: "Mobile Legends, Free Fire, COD Mobile, Clash Royale, Clash of Clans and Rise of Kingdoms — all 6 available at launch, with independent rank, role, mains and stats per game.",
+          a: "14 games: Mobile Legends, Free Fire, COD Mobile, Honor of Kings, PUBG Mobile, Blood Strike, Counter-Strike 2, EA SPORTS FC Mobile, Clash Royale, Clash of Clans, Rise of Kingdoms, Albion Online, Skylore and Neo Monsters — with independent rank, role, mains and stats per game.",
         },
         {
           q: "Why Android only for now?",
