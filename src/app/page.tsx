@@ -19,6 +19,25 @@ const SITE_URL =
 
 const STORAGE_KEY = "ml.lang";
 
+// Logo real de cada juego (en public/games/), keyeado por el `name` que usa
+// strings.ts (igual en ES/EN). Si falta, la card cae al ícono genérico.
+const GAME_ICONS: Record<string, string> = {
+  "Mobile Legends": "/games/mlbb.png",
+  "Free Fire": "/games/free-fire.png",
+  "COD Mobile": "/games/cod-mobile.png",
+  "Honor of Kings": "/games/honor-of-kings.png",
+  "PUBG Mobile": "/games/pubg-mobile.png",
+  "Blood Strike": "/games/blood-strike.png",
+  "Counter-Strike 2": "/games/counter-strike-2.png",
+  "EA SPORTS FC Mobile": "/games/fifa-mobile.png",
+  "Clash Royale": "/games/clash-royale.png",
+  "Clash of Clans": "/games/clash-of-clans.png",
+  "Rise of Kingdoms": "/games/rise-of-kingdoms.png",
+  "Albion Online": "/games/albion-online.png",
+  Skylore: "/games/skylore.png",
+  "Neo Monsters": "/games/neo-monsters.png",
+};
+
 function useLang(): [Lang, (l: Lang) => void] {
   const [lang, setLangState] = useState<Lang>("es");
 
@@ -344,9 +363,19 @@ function Games({ t }: { t: T }) {
             >
               <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full blur-2xl pointer-events-none bg-gradient-to-br from-primary/30 to-accent/20" />
               <div className="flex items-center justify-between mb-3">
-                <div className="w-9 h-9 rounded-lg bg-surface-2 border border-border grid place-items-center text-primary">
-                  <IconController className="w-4 h-4" />
-                </div>
+                {GAME_ICONS[g.name] ? (
+                  <Image
+                    src={GAME_ICONS[g.name]}
+                    alt={g.name}
+                    width={48}
+                    height={48}
+                    className="w-12 h-12 rounded-xl border border-border object-cover shadow-lg shadow-black/30"
+                  />
+                ) : (
+                  <div className="w-12 h-12 rounded-xl bg-surface-2 border border-border grid place-items-center text-primary">
+                    <IconController className="w-5 h-5" />
+                  </div>
+                )}
                 <span
                   className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border bg-success/15 text-success border-success/40"
                   aria-label={t.games.liveLabel}
