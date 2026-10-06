@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { STRINGS, type Lang } from "@/lib/strings";
 import { IndependenceNotice } from "@/app/_components/independence-notice";
 
@@ -18,6 +18,31 @@ const SITE_URL =
     : "https://mythic-lobby.vercel.app");
 
 const STORAGE_KEY = "ml.lang";
+
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+
+// Pasa los utm_* de la URL de la landing al link de Play como `referrer`, así
+// Play Console atribuye cada instalación al anuncio/campaña que la trajo.
+// Sin utm en la URL, se marca como tráfico directo de la landing.
+function usePlayUrl(): string {
+  const [url, setUrl] = useState(PLAY_STORE_URL);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const referrer = new URLSearchParams();
+    for (const key of UTM_KEYS) {
+      const value = params.get(key);
+      if (value) referrer.set(key, value);
+    }
+    if (!referrer.has("utm_source")) referrer.set("utm_source", "landing");
+    if (!referrer.has("utm_medium")) referrer.set("utm_medium", "web");
+    const sep = PLAY_STORE_URL.includes("?") ? "&" : "?";
+    setUrl(`${PLAY_STORE_URL}${sep}referrer=${encodeURIComponent(referrer.toString())}`);
+  }, []);
+  return url;
+}
+
+const PlayUrlContext = createContext(PLAY_STORE_URL);
+const usePlay = () => useContext(PlayUrlContext);
 
 // Logo real de cada juego (en public/games/), keyeado por el `name` que usa
 // strings.ts (igual en ES/EN). Si falta, la card cae al ícono genérico.
@@ -84,9 +109,10 @@ function useLang(): [Lang, (l: Lang) => void] {
 export default function Home() {
   const [lang, setLang] = useLang();
   const t = STRINGS[lang];
+  const playUrl = usePlayUrl();
 
   return (
-    <>
+    <PlayUrlContext.Provider value={playUrl}>
       <StructuredData lang={lang} />
       <NavBar lang={lang} setLang={setLang} t={t} />
       <main className="flex-1">
@@ -94,10 +120,13 @@ export default function Home() {
         <Highlights t={t} />
         <Games t={t} />
         <Features t={t} />
+        <WhyUs t={t} />
         <Competitive t={t} />
+        <InlineCta t={t} />
         <Live t={t} />
         <Arcade t={t} />
         <Rewards t={t} />
+        <InlineCta t={t} />
         <Showcase t={t} />
         <Voice t={t} />
         <Partnership t={t} />
@@ -106,7 +135,8 @@ export default function Home() {
         <CallToAction t={t} />
       </main>
       <Footer t={t} />
-    </>
+      <StickyDownloadBar t={t} />
+    </PlayUrlContext.Provider>
   );
 }
 
@@ -176,6 +206,7 @@ function StructuredData({ lang }: { lang: Lang }) {
 type T = (typeof STRINGS)[Lang];
 
 function NavBar({ lang, setLang, t }: { lang: Lang; setLang: (l: Lang) => void; t: T }) {
+  const playUrl = usePlay();
   return (
     <header className="sticky top-0 z-40 backdrop-blur-md bg-[rgba(5,7,14,0.65)] border-b border-border/60">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-3">
@@ -204,7 +235,7 @@ function NavBar({ lang, setLang, t }: { lang: Lang; setLang: (l: Lang) => void; 
         <div className="flex items-center gap-2">
           <LanguageSwitcher lang={lang} setLang={setLang} label={t.nav.languageLabel} />
           <a
-            href={PLAY_STORE_URL}
+            href={playUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary text-sm py-2.5 px-4"
@@ -254,6 +285,7 @@ function LanguageSwitcher({
 }
 
 function Hero({ t }: { t: T }) {
+  const playUrl = usePlay();
   return (
     <section id="top" className="relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-20 pb-24 md:pt-28 md:pb-32 grid md:grid-cols-[1.05fr_0.95fr] gap-12 items-center">
@@ -270,7 +302,7 @@ function Hero({ t }: { t: T }) {
           <p className="text-soft text-lg max-w-xl leading-relaxed">{t.hero.subtitle}</p>
           <div className="flex flex-wrap gap-3 pt-2 items-stretch">
             <a
-              href={PLAY_STORE_URL}
+              href={playUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="relative inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-emerald-400/50 bg-surface-2/70 text-foreground hover:border-emerald-400 transition animate-pulse-glow"
@@ -1001,6 +1033,7 @@ function Partnership({ t }: { t: T }) {
 }
 
 function CallToAction({ t }: { t: T }) {
+  const playUrl = usePlay();
   return (
     <section className="relative py-20 md:py-28">
       <div className="max-w-4xl mx-auto px-5 sm:px-8">
@@ -1009,17 +1042,28 @@ function CallToAction({ t }: { t: T }) {
           <div className="relative">
             <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight">{t.cta.title}</h2>
             <p className="text-soft mt-3 max-w-xl mx-auto">{t.cta.subtitle}</p>
+            <ol className="grid sm:grid-cols-3 gap-3 mt-8 text-left">
+              {t.cta.steps.map((step, i) => (
+                <li key={step} className="flex items-center gap-3 rounded-xl border border-border bg-surface-2/70 px-4 py-3">
+                  <span className="w-7 h-7 shrink-0 rounded-full bg-primary/20 border border-primary/40 text-primary text-xs font-extrabold grid place-items-center">
+                    {i + 1}
+                  </span>
+                  <span className="text-sm text-foreground font-semibold">{step}</span>
+                </li>
+              ))}
+            </ol>
             <div className="flex justify-center mt-7">
               <a
-                href={PLAY_STORE_URL}
+                href={playUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary"
+                className="btn-primary animate-pulse-glow"
               >
                 <IconGooglePlay className="w-5 h-5" />
                 {t.cta.button}
               </a>
             </div>
+            <p className="text-xs text-muted mt-4">{t.cta.footnote}</p>
           </div>
         </div>
       </div>
@@ -1027,10 +1071,109 @@ function CallToAction({ t }: { t: T }) {
   );
 }
 
+function WhyUs({ t }: { t: T }) {
+  const w = t.why;
+  return (
+    <section id="why" className="relative py-20 md:py-28">
+      <div className="max-w-4xl mx-auto px-5 sm:px-8">
+        <SectionHeader
+          eyebrow={w.eyebrow}
+          title={
+            <>
+              {w.titlePart1} <span className="text-gradient">{w.titleHighlight}</span>
+            </>
+          }
+          subtitle={w.subtitle}
+        />
+        <div className="card mt-12 overflow-hidden">
+          <div className="grid grid-cols-[1fr_4.75rem_4.75rem] sm:grid-cols-[1fr_8rem_8rem] text-xs sm:text-sm">
+            <div className="px-4 sm:px-5 py-3 flex items-center text-muted font-semibold uppercase tracking-wider text-[10px] sm:text-[11px]">
+              {w.colFeature}
+            </div>
+            <div className="px-2 py-3 grid place-items-center text-center text-[11px] sm:text-sm leading-tight text-foreground font-bold bg-primary/10 border-x border-primary/30">
+              Mythic Lobby
+            </div>
+            <div className="px-2 py-3 grid place-items-center text-center text-[11px] sm:text-sm leading-tight text-muted font-semibold">{w.colOthers}</div>
+            {w.rows.map((row) => (
+              <div key={row.label} className="contents">
+                <div className="px-4 sm:px-5 py-3 border-t border-border/70 text-soft flex items-center">{row.label}</div>
+                <div className="px-3 py-3 border-t border-x border-border/70 border-x-primary/30 bg-primary/10 grid place-items-center text-success">
+                  <IconCheck className="w-4 h-4" />
+                </div>
+                <div className="px-3 py-3 border-t border-border/70 grid place-items-center text-muted">
+                  {row.others ? <IconCheck className="w-4 h-4" /> : <IconX className="w-4 h-4 text-danger/70" />}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <p className="text-xs text-muted mt-4 text-center">{w.footnote}</p>
+      </div>
+    </section>
+  );
+}
+
+function InlineCta({ t }: { t: T }) {
+  const playUrl = usePlay();
+  return (
+    <div className="max-w-6xl mx-auto px-5 sm:px-8">
+      <div className="card px-5 py-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-primary/15 via-accent/10 to-transparent">
+        <div className="text-center sm:text-left">
+          <p className="text-foreground font-bold">{t.inlineCta.title}</p>
+          <p className="text-soft text-sm">{t.inlineCta.subtitle}</p>
+        </div>
+        <a href={playUrl} target="_blank" rel="noopener noreferrer" className="btn-primary shrink-0">
+          <IconGooglePlay className="w-5 h-5" />
+          {t.inlineCta.button}
+        </a>
+      </div>
+    </div>
+  );
+}
+
+// Barra fija abajo en móvil (la mayoría del tráfico de anuncios llega por
+// teléfono): aparece al pasar el hero para que instalar esté siempre a un toque.
+function StickyDownloadBar({ t }: { t: T }) {
+  const playUrl = usePlay();
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 560);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <div
+      className={`md:hidden fixed inset-x-0 bottom-0 z-50 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 bg-[rgba(5,7,14,0.92)] backdrop-blur-md border-t border-border/70 transition-transform duration-300 ${
+        visible ? "translate-y-0" : "translate-y-full"
+      }`}
+      aria-hidden={!visible}
+    >
+      <div className="flex items-center gap-3">
+        <Image src="/brand/icon.png" alt="" width={40} height={40} className="rounded-lg shrink-0" />
+        <div className="flex-1 min-w-0">
+          <p className="text-foreground text-sm font-bold leading-tight truncate">{t.sticky.title}</p>
+          <p className="text-muted text-xs truncate">{t.sticky.subtitle}</p>
+        </div>
+        <a
+          href={playUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          tabIndex={visible ? 0 : -1}
+          className="btn-primary text-sm py-2.5 px-4 shrink-0"
+        >
+          <IconGooglePlay className="w-4 h-4" />
+          {t.sticky.button}
+        </a>
+      </div>
+    </div>
+  );
+}
+
 function Footer({ t }: { t: T }) {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-border/60 mt-10 py-10">
+    <footer className="border-t border-border/60 mt-10 py-10 pb-28 md:pb-10">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 space-y-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-muted">
           <div className="flex items-center gap-2.5">
@@ -1275,6 +1418,13 @@ function IconEye({ className }: IconProps) {
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
       <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+function IconX({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M18 6 6 18" /><path d="m6 6 12 12" />
     </svg>
   );
 }

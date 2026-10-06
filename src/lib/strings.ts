@@ -138,7 +138,21 @@ export type Strings = {
     title: string;
     subtitle: string;
     button: string;
+    steps: string[];
+    footnote: string;
   };
+  why: {
+    eyebrow: string;
+    titlePart1: string;
+    titleHighlight: string;
+    subtitle: string;
+    colFeature: string;
+    colOthers: string;
+    rows: { label: string; others: boolean }[];
+    footnote: string;
+  };
+  inlineCta: { title: string; subtitle: string; button: string };
+  sticky: { title: string; subtitle: string; button: string };
   partnership: {
     eyebrow: string;
     titlePart1: string;
@@ -181,7 +195,7 @@ export const STRINGS: Record<Lang, Strings> = {
       donate: "Apoyar",
       faq: "FAQ",
       partnership: "Colaborar",
-      download: "Descargar",
+      download: "Descargar gratis",
       languageLabel: "Idioma",
     },
     hero: {
@@ -193,7 +207,7 @@ export const STRINGS: Record<Lang, Strings> = {
         "Arma equipo, compite en torneos con árbitros, transmite tu partida en vivo y juega minijuegos con tu squad. Voz, chats y notificaciones en una sola app. Sin Discord.",
       ctaDownload: "Descargar en Google Play",
       ctaFeatures: "Ver características",
-      playStoreTop: "Disponible en",
+      playStoreTop: "Descarga gratis en",
       playStoreBottom: "Google Play",
       bullets: ["100% gratis", "Sin anuncios", "Voz y streams integrados", "Hecho por gamers"],
       cardLiveLabel: "En vivo",
@@ -520,7 +534,37 @@ export const STRINGS: Record<Lang, Strings> = {
     cta: {
       title: "Tu squad te está esperando.",
       subtitle: "Descarga la app, crea tu perfil y empieza a armar partidas, retos y streams en minutos.",
-      button: "Descargar en Google Play",
+      button: "Descargar gratis en Google Play",
+      steps: ["Instala gratis", "Elige tus juegos", "Encuentra tu squad"],
+      footnote: "Para Android · Sin anuncios · Sin pagos obligatorios",
+    },
+    why: {
+      eyebrow: "Por qué Mythic Lobby",
+      titlePart1: "Deja de armar partidas",
+      titleHighlight: "en diez grupos distintos",
+      subtitle:
+        "Discord y WhatsApp sirven para hablar. Mythic Lobby está hecha para encontrar gente, organizar y competir en tu juego.",
+      colFeature: "Lo que necesitas",
+      colOthers: "Discord + WhatsApp",
+      rows: [
+        { label: "Buscar jugadores por juego, rank y rol", others: false },
+        { label: "Chat y voz por equipo y por partida", others: true },
+        { label: "Retos y torneos con árbitros y bracket", others: false },
+        { label: "Clasificación de equipos por temporada", others: false },
+        { label: "Perfil con rank y Player ID de cada juego", others: false },
+        { label: "Avisos aunque Google esté limitado en tu país", others: false },
+      ],
+      footnote: "Comparado con coordinar usando Discord y grupos de WhatsApp por separado.",
+    },
+    inlineCta: {
+      title: "Tu próxima partida empieza aquí",
+      subtitle: "Gratis en Google Play. Sin anuncios. Te registras en un minuto.",
+      button: "Descargar gratis",
+    },
+    sticky: {
+      title: "Mythic Lobby",
+      subtitle: "Gratis · Sin anuncios",
+      button: "Instalar",
     },
     partnership: {
       eyebrow: "Colaboraciones",
@@ -567,7 +611,7 @@ export const STRINGS: Record<Lang, Strings> = {
       donate: "Support",
       faq: "FAQ",
       partnership: "Partner",
-      download: "Download",
+      download: "Download free",
       languageLabel: "Language",
     },
     hero: {
@@ -579,7 +623,7 @@ export const STRINGS: Record<Lang, Strings> = {
         "Build a team, compete in refereed tournaments, stream your match live and play minigames with your squad. Voice, chats and notifications in one app. No Discord.",
       ctaDownload: "Get it on Google Play",
       ctaFeatures: "See features",
-      playStoreTop: "Get it on",
+      playStoreTop: "Get it free on",
       playStoreBottom: "Google Play",
       bullets: ["100% free", "No ads", "Built-in voice and streams", "Built by gamers"],
       cardLiveLabel: "Live",
@@ -906,7 +950,37 @@ export const STRINGS: Record<Lang, Strings> = {
     cta: {
       title: "Your squad is waiting.",
       subtitle: "Download the app, build your profile and start setting up matches, challenges and streams in minutes.",
-      button: "Get it on Google Play",
+      button: "Get it free on Google Play",
+      steps: ["Install for free", "Pick your games", "Find your squad"],
+      footnote: "For Android · No ads · No required payments",
+    },
+    why: {
+      eyebrow: "Why Mythic Lobby",
+      titlePart1: "Stop organizing matches",
+      titleHighlight: "across ten different groups",
+      subtitle:
+        "Discord and WhatsApp are great for talking. Mythic Lobby is built to find people, organize and compete in your game.",
+      colFeature: "What you need",
+      colOthers: "Discord + WhatsApp",
+      rows: [
+        { label: "Find players by game, rank and role", others: false },
+        { label: "Chat and voice per team and per match", others: true },
+        { label: "Refereed challenges and bracket tournaments", others: false },
+        { label: "Season ranking for teams", others: false },
+        { label: "Profile with rank and Player ID per game", others: false },
+        { label: "Notifications even where Google is restricted", others: false },
+      ],
+      footnote: "Compared with coordinating through Discord and WhatsApp groups separately.",
+    },
+    inlineCta: {
+      title: "Your next match starts here",
+      subtitle: "Free on Google Play. No ads. Sign up in a minute.",
+      button: "Download free",
+    },
+    sticky: {
+      title: "Mythic Lobby",
+      subtitle: "Free · No ads",
+      button: "Install",
     },
     partnership: {
       eyebrow: "Partnerships",
