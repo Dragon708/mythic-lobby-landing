@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Mythic Lobby",
     short_name: "Mythic Lobby",
     description:
-      "El lobby donde gamers arman squad para ranked en cualquier juego competitivo. Filtros por rank, rol, horario y región. Voz integrada por partida.",
+      "La app donde gamers arman squad, compiten en torneos con árbitros, transmiten en vivo y hablan por voz. En cualquier juego competitivo.",
     start_url: "/",
     display: "standalone",
     background_color: "#05070E",

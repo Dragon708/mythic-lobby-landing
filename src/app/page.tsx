@@ -9,7 +9,7 @@ import { IndependenceNotice } from "@/app/_components/independence-notice";
 const PLAY_STORE_URL =
   process.env.NEXT_PUBLIC_PLAY_STORE_URL ??
   "https://play.google.com/store/apps/details?id=com.mythiclobby.app";
-const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0";
+const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.1.7";
 const CONTACT_EMAIL = "jorgegmdgonzalez@gmail.com";
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -36,6 +36,16 @@ const GAME_ICONS: Record<string, string> = {
   "Albion Online": "/games/albion-online.png",
   Skylore: "/games/skylore.png",
   "Neo Monsters": "/games/neo-monsters.png",
+};
+
+// Arte de cada minijuego (copiado de assets/ del repo de la app), keyeado por
+// el `name` de strings.ts. `cover` = el arte llena la caja en vez de verse como logo.
+const ARCADE_ART: Record<string, { src: string; cover: boolean }> = {
+  "Mythic Battle Squad": { src: "/minigames/mbs-logo.webp", cover: false },
+  Ajedrez: { src: "/minigames/chess-logo.jpg", cover: true },
+  Chess: { src: "/minigames/chess-logo.jpg", cover: true },
+  Damas: { src: "/minigames/checkers-logo.jpg", cover: true },
+  Checkers: { src: "/minigames/checkers-logo.jpg", cover: true },
 };
 
 function useLang(): [Lang, (l: Lang) => void] {
@@ -81,11 +91,16 @@ export default function Home() {
       <NavBar lang={lang} setLang={setLang} t={t} />
       <main className="flex-1">
         <Hero t={t} />
+        <Highlights t={t} />
         <Games t={t} />
-        <Partnership t={t} />
         <Features t={t} />
+        <Competitive t={t} />
+        <Live t={t} />
+        <Arcade t={t} />
+        <Rewards t={t} />
         <Showcase t={t} />
         <Voice t={t} />
+        <Partnership t={t} />
         <Donate t={t} />
         <FAQ t={t} />
         <CallToAction t={t} />
@@ -122,7 +137,6 @@ function StructuredData({ lang }: { lang: Lang }) {
       softwareVersion: APP_VERSION,
       downloadUrl: PLAY_STORE_URL,
       installUrl: PLAY_STORE_URL,
-      fileSize: "110MB",
       description: t.jsonLd.mobileAppDescription,
       offers: {
         "@type": "Offer",
@@ -181,11 +195,11 @@ function NavBar({ lang, setLang, t }: { lang: Lang; setLang: (l: Lang) => void; 
         <nav className="hidden md:flex items-center gap-6 text-sm text-soft">
           <a href="#games" className="hover:text-foreground transition">{t.nav.games}</a>
           <a href="#features" className="hover:text-foreground transition">{t.nav.features}</a>
-          <a href="#showcase" className="hover:text-foreground transition">{t.nav.showcase}</a>
-          <a href="#voice" className="hover:text-foreground transition">{t.nav.voice}</a>
-          <a href="#donate" className="hover:text-foreground transition">{t.nav.donate}</a>
+          <a href="#competitive" className="hover:text-foreground transition">{t.nav.competitive}</a>
+          <a href="#live" className="hover:text-foreground transition">{t.nav.live}</a>
+          <a href="#arcade" className="hover:text-foreground transition">{t.nav.arcade}</a>
           <a href="#faq" className="hover:text-foreground transition">{t.nav.faq}</a>
-          <a href="#partnership" className="hover:text-foreground transition">{t.nav.partnership}</a>
+          <a href="#partnership" className="hidden lg:inline hover:text-foreground transition">{t.nav.partnership}</a>
         </nav>
         <div className="flex items-center gap-2">
           <LanguageSwitcher lang={lang} setLang={setLang} label={t.nav.languageLabel} />
@@ -245,8 +259,8 @@ function Hero({ t }: { t: T }) {
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-20 pb-24 md:pt-28 md:pb-32 grid md:grid-cols-[1.05fr_0.95fr] gap-12 items-center">
         <div className="space-y-7">
           <span className="chip">
-            <span className="dot text-warning" />
-            {t.hero.chipBeta(APP_VERSION)}
+            <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
+            {t.hero.chipLive(APP_VERSION)}
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.05] tracking-tight">
             {t.hero.titlePart1}{" "}
@@ -297,15 +311,15 @@ function Hero({ t }: { t: T }) {
           </div>
           <div className="absolute -bottom-2 -left-2 md:-left-6 card p-3 w-[210px] hidden sm:block">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-success/15 border border-success/40 grid place-items-center text-success">
-                <IconUsers className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-full bg-danger/15 border border-danger/40 grid place-items-center text-danger">
+                <IconBroadcast className="w-5 h-5" />
               </div>
               <div>
                 <p className="text-[11px] text-muted uppercase tracking-wider">
-                  {t.hero.cardOnlineLabel}
+                  {t.hero.cardLiveLabel}
                 </p>
                 <p className="text-foreground font-bold leading-tight">
-                  {t.hero.cardOnlineValue}
+                  {t.hero.cardLiveValue}
                 </p>
               </div>
             </div>
@@ -397,16 +411,18 @@ function Games({ t }: { t: T }) {
 function Features({ t }: { t: T }) {
   const icons = [
     <IconSearch key="search" className="w-5 h-5" />,
+    <IconBolt key="ready" className="w-5 h-5" />,
     <IconShield key="shield" className="w-5 h-5" />,
     <IconCalendar key="cal" className="w-5 h-5" />,
     <IconMic key="mic" className="w-5 h-5" />,
     <IconChat key="chat" className="w-5 h-5" />,
     <IconBell key="bell" className="w-5 h-5" />,
     <IconStar key="star" className="w-5 h-5" />,
-    <IconUpdate key="update" className="w-5 h-5" />,
+    <IconBook key="book" className="w-5 h-5" />,
   ];
   const colors = [
     "from-blue-500/20 to-indigo-500/10",
+    "from-lime-500/20 to-emerald-500/10",
     "from-purple-500/20 to-pink-500/10",
     "from-emerald-500/20 to-teal-500/10",
     "from-amber-500/20 to-orange-500/10",
@@ -438,6 +454,294 @@ function Features({ t }: { t: T }) {
                 {icons[i]}
               </div>
               <h3 className="text-foreground font-semibold text-[17px] mb-1.5">{it.title}</h3>
+              <p className="text-soft text-sm leading-relaxed">{it.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Highlights({ t }: { t: T }) {
+  return (
+    <section aria-label={t.meta.siteName} className="relative -mt-8 md:-mt-14">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px rounded-2xl border border-border bg-border/70 overflow-hidden">
+          {t.highlights.map((h) => (
+            <div key={h.label} className="px-5 py-5 text-center bg-surface/95">
+              <p className="text-gradient text-2xl md:text-3xl font-extrabold tracking-tight tabular-nums">
+                {h.value}
+              </p>
+              <p className="text-muted text-xs mt-1">{h.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Competitive({ t }: { t: T }) {
+  const c = t.competitive;
+  const icons = [
+    <IconSwords key="swords" className="w-5 h-5" />,
+    <IconGavel key="gavel" className="w-5 h-5" />,
+    <IconTrophy key="trophy" className="w-5 h-5" />,
+    <IconChart key="chart" className="w-5 h-5" />,
+  ];
+  return (
+    <section id="competitive" className="relative py-20 md:py-28">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <SectionHeader
+          eyebrow={c.eyebrow}
+          title={
+            <>
+              {c.titlePart1} <span className="text-gradient">{c.titleHighlight}</span>
+            </>
+          }
+          subtitle={c.subtitle}
+        />
+        <div className="grid lg:grid-cols-[1fr_1.05fr] gap-6 mt-14 items-center">
+          <div className="grid sm:grid-cols-2 gap-4">
+            {c.items.map((it, i) => (
+              <div key={it.title} className="card card-hover p-5">
+                <div className="w-10 h-10 rounded-xl bg-warning/10 border border-warning/30 grid place-items-center text-warning mb-4">
+                  {icons[i]}
+                </div>
+                <h3 className="text-foreground font-semibold mb-1.5">{it.title}</h3>
+                <p className="text-soft text-sm leading-relaxed">{it.desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="relative">
+            <div className="absolute -inset-2 sm:-inset-6 -z-10 blur-3xl opacity-60 bg-gradient-to-br from-warning/25 via-primary/20 to-accent/20 rounded-full" />
+            <div className="card p-5 md:p-6 bg-[rgba(5,7,14,0.6)]">
+              <div className="flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-xs text-muted uppercase tracking-wider">{c.bracketLabel}</p>
+                  <p className="text-foreground font-bold truncate">{c.bracketTitle}</p>
+                </div>
+                <span className="chip text-warning bg-warning/15 border-warning/30 shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-warning animate-pulse" />
+                  {c.bracketStatus}
+                </span>
+              </div>
+              <div className="divider my-4" />
+              <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+                <div className="space-y-4">
+                  <p className="text-[10px] text-muted uppercase tracking-[0.18em] font-bold">
+                    {c.roundSemis}
+                  </p>
+                  {c.semis.map((m) => (
+                    <div key={m.a + m.b} className="rounded-xl border border-border bg-surface-2/70 overflow-hidden text-sm">
+                      <BracketRow name={m.a} score={m.winner === "a" ? 2 : 1} won={m.winner === "a"} />
+                      <div className="h-px bg-border" />
+                      <BracketRow name={m.b} score={m.winner === "b" ? 2 : 0} won={m.winner === "b"} />
+                    </div>
+                  ))}
+                </div>
+                <div className="hidden sm:block w-6 h-28 border-y-2 border-r-2 border-border rounded-r-lg" />
+                <div className="space-y-4">
+                  <p className="flex items-center gap-1.5 text-[10px] text-warning uppercase tracking-[0.18em] font-bold">
+                    <IconTrophy className="w-3.5 h-3.5" />
+                    {c.roundFinal}
+                  </p>
+                  <div className="rounded-xl border border-warning/50 bg-warning/10 overflow-hidden text-sm shadow-[0_10px_30px_-12px_rgba(245,158,11,0.55)]">
+                    <BracketRow name={c.final.a} score={null} won={false} />
+                    <div className="h-px bg-warning/30" />
+                    <BracketRow name={c.final.b} score={null} won={false} />
+                  </div>
+                </div>
+              </div>
+              <div className="divider my-4" />
+              <p className="flex items-center gap-2 text-xs text-success">
+                <IconCheck className="w-4 h-4" />
+                {c.refereeNote}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BracketRow({ name, score, won }: { name: string; score: number | null; won: boolean }) {
+  return (
+    <div className={`flex items-center justify-between gap-2 px-3 py-2 ${won ? "text-foreground font-semibold" : "text-soft"}`}>
+      <span className="truncate">{name}</span>
+      <span className={`tabular-nums text-xs ${won ? "text-success" : "text-muted"}`}>
+        {score === null ? "–" : score}
+      </span>
+    </div>
+  );
+}
+
+function Live({ t }: { t: T }) {
+  const l = t.live;
+  return (
+    <section id="live" className="relative py-20 md:py-28">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <div className="card relative overflow-hidden p-6 sm:p-8 md:p-14 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-danger/15 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-20 w-80 h-80 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
+          <div className="relative min-w-0 md:order-2">
+            <span className="chip mb-5 text-danger bg-danger/10 border-danger/30">
+              <IconBroadcast className="w-3.5 h-3.5" />
+              {l.chip}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
+              {l.titlePart1} <span className="text-gradient">{l.titleHighlight}</span>.
+            </h2>
+            <p className="text-soft mt-4 leading-relaxed">{l.subtitle}</p>
+            <ul className="mt-6 space-y-3 text-soft">
+              {l.bullets.map((b) => (
+                <li key={b} className="flex gap-3">
+                  <IconCheck className="w-5 h-5 text-success mt-0.5 shrink-0" /> {b}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 text-xs text-muted leading-relaxed">{l.note}</p>
+          </div>
+          <div className="relative min-w-0 md:order-1">
+            <div className="card p-5 space-y-3 bg-[rgba(5,7,14,0.55)]">
+              <div>
+                <p className="text-foreground font-bold">{l.tabTitle}</p>
+                <p className="text-muted text-xs">{l.tabSubtitle}</p>
+              </div>
+              <div className="divider" />
+              {l.streams.map((s) => (
+                <div key={s.title} className="flex items-center gap-3">
+                  <div className="relative w-16 sm:w-24 h-12 sm:h-14 shrink-0 rounded-lg overflow-hidden border border-border bg-gradient-to-br from-primary/30 via-accent/20 to-pink-500/20 grid place-items-center">
+                    {GAME_ICONS[s.game] ? (
+                      <Image
+                        src={GAME_ICONS[s.game]}
+                        alt=""
+                        width={96}
+                        height={96}
+                        className="w-full h-full object-cover opacity-70"
+                      />
+                    ) : null}
+                    <span className="absolute top-1 left-1 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-danger text-white">
+                      {t.voice.liveLabel}
+                    </span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-foreground text-sm font-semibold truncate">{s.title}</p>
+                    <p className="text-muted text-xs truncate">
+                      {s.host} · {s.game}
+                    </p>
+                    <p className="text-soft text-[11px] flex items-center gap-1 mt-0.5">
+                      <IconEye className="w-3 h-3" /> {s.viewers}
+                    </p>
+                  </div>
+                  <span className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-primary/15 border border-primary/40 text-primary shrink-0">
+                    {l.watch}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Arcade({ t }: { t: T }) {
+  const a = t.arcade;
+  return (
+    <section id="arcade" className="relative py-20 md:py-28">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <SectionHeader
+          eyebrow={a.eyebrow}
+          title={
+            <>
+              {a.titlePart1} <span className="text-gradient">{a.titleHighlight}</span>
+            </>
+          }
+          subtitle={a.subtitle}
+        />
+        <div className="grid md:grid-cols-3 gap-4 mt-14">
+          {a.items.map((g) => {
+            const art = ARCADE_ART[g.name];
+            return (
+              <div key={g.name} className="card card-hover overflow-hidden flex flex-col">
+                <div className="relative h-40 bg-gradient-to-br from-primary/25 via-accent/15 to-transparent grid place-items-center overflow-hidden">
+                  {art ? (
+                    <Image
+                      src={art.src}
+                      alt={g.name}
+                      width={400}
+                      height={300}
+                      className={art.cover ? "w-full h-full object-cover" : "h-32 w-auto object-contain drop-shadow-[0_12px_30px_rgba(124,92,255,0.5)]"}
+                    />
+                  ) : (
+                    <IconController className="w-10 h-10 text-primary" />
+                  )}
+                  <span className="absolute bottom-2 right-2 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full bg-[rgba(5,7,14,0.75)] border border-border text-soft">
+                    {g.meta}
+                  </span>
+                </div>
+                <div className="p-5 flex-1">
+                  <h3 className="text-foreground font-semibold text-[17px]">{g.name}</h3>
+                  <p className="text-soft text-sm leading-relaxed mt-1.5">{g.desc}</p>
+                  <ul className="mt-4 space-y-2">
+                    {g.bullets.map((b) => (
+                      <li key={b} className="flex gap-2 text-xs text-soft leading-relaxed">
+                        <IconCheck className="w-3.5 h-3.5 text-success mt-0.5 shrink-0" /> {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="mt-6 card p-4 flex items-center gap-4">
+          <Image
+            src="/minigames/conquest-logo.webp"
+            alt="Mythic Conquest"
+            width={56}
+            height={56}
+            className="w-14 h-14 rounded-xl object-cover border border-border shrink-0"
+          />
+          <p className="text-soft text-sm leading-relaxed">{a.comingSoon}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Rewards({ t }: { t: T }) {
+  const r = t.rewards;
+  const icons = [
+    <IconChart key="levels" className="w-5 h-5" />,
+    <IconGift key="gift" className="w-5 h-5" />,
+    <IconTrophy key="trophy" className="w-5 h-5" />,
+    <IconSparkles key="shop" className="w-5 h-5" />,
+  ];
+  return (
+    <section id="rewards" className="relative py-20 md:py-28">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <SectionHeader
+          eyebrow={r.eyebrow}
+          title={
+            <>
+              {r.titlePart1} <span className="text-gradient">{r.titleHighlight}</span>
+            </>
+          }
+          subtitle={r.subtitle}
+        />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-14">
+          {r.items.map((it, i) => (
+            <div key={it.title} className="card card-hover p-5 relative overflow-hidden">
+              <div className="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-gradient-to-br from-accent/25 to-pink-500/10 blur-2xl pointer-events-none" />
+              <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/30 grid place-items-center text-accent mb-4">
+                {icons[i]}
+              </div>
+              <h3 className="text-foreground font-semibold mb-1.5">{it.title}</h3>
               <p className="text-soft text-sm leading-relaxed">{it.desc}</p>
             </div>
           ))}
@@ -499,7 +803,7 @@ function Voice({ t }: { t: T }) {
   return (
     <section id="voice" className="relative py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        <div className="card relative overflow-hidden p-8 md:p-14 grid md:grid-cols-2 gap-10 items-center">
+        <div className="card relative overflow-hidden p-6 sm:p-8 md:p-14 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-primary/20 blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -right-20 w-80 h-80 rounded-full bg-accent/20 blur-3xl pointer-events-none" />
           <div className="relative">
@@ -558,6 +862,9 @@ function Voice({ t }: { t: T }) {
               <div className="flex gap-2 pt-1">
                 <button className="flex-1 btn-secondary text-sm py-2">
                   <IconMic className="w-4 h-4" /> {t.voice.muteBtn}
+                </button>
+                <button className="flex-1 btn-secondary text-sm py-2">
+                  <IconBroadcast className="w-4 h-4" /> {t.voice.shareBtn}
                 </button>
                 <button className="flex-1 text-sm py-2 px-3 rounded-xl bg-danger/15 border border-danger/40 text-danger font-semibold flex items-center justify-center gap-2">
                   <IconHangup className="w-4 h-4" /> {t.voice.hangupBtn}
@@ -745,6 +1052,9 @@ function Footer({ t }: { t: T }) {
             <Link href="/terms" className="text-soft hover:text-foreground transition">
               {t.footer.termsLink}
             </Link>
+            <Link href="/delete-account" className="text-soft hover:text-foreground transition">
+              {t.footer.deleteAccountLink}
+            </Link>
           </nav>
         </div>
         <IndependenceNotice className="max-w-3xl mx-auto text-center" />
@@ -766,16 +1076,6 @@ function IconCheck({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="m5 12 5 5L20 7" />
-    </svg>
-  );
-}
-function IconUsers({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
     </svg>
   );
 }
@@ -843,16 +1143,6 @@ function IconStar({ className }: IconProps) {
     </svg>
   );
 }
-function IconUpdate({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
-      <path d="M21 3v5h-5" />
-      <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
-      <path d="M3 21v-5h5" />
-    </svg>
-  );
-}
 function IconHeart({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor">
@@ -898,6 +1188,93 @@ function IconController({ className }: IconProps) {
       <circle cx="15" cy="12" r="1" />
       <circle cx="18" cy="10" r="1" />
       <path d="M17 6H7a5 5 0 0 0-5 5v2a5 5 0 0 0 9.5 2h1A5 5 0 0 0 22 13v-2a5 5 0 0 0-5-5Z" />
+    </svg>
+  );
+}
+function IconBroadcast({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="2" />
+      <path d="M16.2 7.8a6 6 0 0 1 0 8.4" />
+      <path d="M7.8 16.2a6 6 0 0 1 0-8.4" />
+      <path d="M19.1 4.9a10 10 0 0 1 0 14.2" />
+      <path d="M4.9 19.1a10 10 0 0 1 0-14.2" />
+    </svg>
+  );
+}
+function IconBolt({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z" />
+    </svg>
+  );
+}
+function IconBook({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14Z" />
+      <path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5" />
+    </svg>
+  );
+}
+function IconTrophy({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 21h8" />
+      <path d="M12 17v4" />
+      <path d="M7 4h10v5a5 5 0 0 1-10 0V4Z" />
+      <path d="M17 6h3v2a3 3 0 0 1-3 3" />
+      <path d="M7 6H4v2a3 3 0 0 0 3 3" />
+    </svg>
+  );
+}
+function IconSwords({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14.5 17.5 3 6V3h3l11.5 11.5" />
+      <path d="m13 19 6-6" />
+      <path d="m16 16 4 4" />
+      <path d="m19 21 2-2" />
+      <path d="M9.5 6.5 13 3h3v3l-3.5 3.5" />
+      <path d="m5 14 4 4" />
+      <path d="m3 21 4-4" />
+    </svg>
+  );
+}
+function IconGavel({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m14 13-7.5 7.5a2.1 2.1 0 0 1-3-3L11 10" />
+      <path d="m16 16 6-6" />
+      <path d="m8 8 6-6" />
+      <path d="m9 7 8 8" />
+      <path d="m21 11-8-8" />
+    </svg>
+  );
+}
+function IconChart({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 3v18h18" />
+      <path d="m7 15 4-4 3 3 5-6" />
+    </svg>
+  );
+}
+function IconGift({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="8" width="18" height="4" rx="1" />
+      <path d="M12 8v13" />
+      <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
+      <path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5" />
+    </svg>
+  );
+}
+function IconEye({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+      <circle cx="12" cy="12" r="3" />
     </svg>
   );
 }
