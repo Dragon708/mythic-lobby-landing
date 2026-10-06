@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 const SITE_NAME = "Mythic Lobby";
-const SITE_TAGLINE = "Encontrá tu squad. En cualquier juego. En cualquier rank.";
+const SITE_TAGLINE = "Encuentra tu squad. En cualquier juego. En cualquier rank.";
 const SITE_DESCRIPTION =
-  "Mythic Lobby es el lobby global donde gamers arman squad para ranked en MLBB, Free Fire, COD Mobile, Clash Royale, Clash of Clans y Rise of Kingdoms. Filtros por rank, rol, horario y región. Voz integrada por partida. Sin Discord.";
+  "Mythic Lobby es la app gratis donde gamers arman squad, compiten en torneos con árbitros, transmiten su partida en vivo y hablan por voz. MLBB, Free Fire, COD Mobile, PUBG Mobile, Clash Royale y más. Sin Discord.";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -56,6 +56,14 @@ export const metadata: Metadata = {
     "ranked matchmaking",
     "esports community app",
     "sin Discord",
+    "torneos MLBB",
+    "torneos Free Fire",
+    "transmitir partida en vivo",
+    "compartir pantalla juego",
+    "ajedrez online Elo",
+    "damas online",
+    "batalla naval online",
+    "app gamer Cuba",
   ],
   alternates: {
     canonical: "/",
