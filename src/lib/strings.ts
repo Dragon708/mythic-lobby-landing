@@ -217,7 +217,7 @@ export const STRINGS: Record<Lang, Strings> = {
     },
     highlights: [
       { value: "14", label: "juegos soportados" },
-      { value: "3", label: "minijuegos con tu squad" },
+      { value: "6", label: "minijuegos con tu squad" },
       { value: "1–100", label: "niveles con recompensas" },
       { value: "ES · EN · PT", label: "idiomas en la app" },
     ],
@@ -387,6 +387,39 @@ export const STRINGS: Record<Lang, Strings> = {
             "Sala con código para retar a un amigo",
             "IA en 3 niveles para practicar",
             "Las partidas contra la IA no tocan tu Elo",
+          ],
+        },
+        {
+          name: "Dominó",
+          meta: "2v2 · Elo · Bots",
+          desc: "Dominó doble 9 por parejas, como en el barrio, con su propio Elo.",
+          bullets: [
+            "Partida rápida contra otras parejas online",
+            "Mesa con amigos: tú eliges quién es tu pareja",
+            "Busca 2 rivales online con tu pareja",
+            "Los bots llenan asientos vacíos y esas partidas no tocan tu Elo",
+          ],
+        },
+        {
+          name: "Parchís",
+          meta: "2-4 jugadores · Elo",
+          desc: "Parchís de 4 colores con dos dados, puentes, casillas seguras y capturas.",
+          bullets: [
+            "Comer ficha da +20 casillas",
+            "Dobles: vuelves a tirar; al tercero, tu ficha vuelve a casa",
+            "Puentes que bloquean el paso a todos",
+            "Juega con amigos, con gente online o completa con bots",
+          ],
+        },
+        {
+          name: "Cartas Locas",
+          meta: "2-4 jugadores · Elo",
+          desc: "Juego de cartas de colores: +2, +4, salta, reversa y comodín. Gana quien se quede sin cartas.",
+          bullets: [
+            "Partidas rápidas online o mesa con amigos",
+            "Cartas que castigan al siguiente jugador",
+            "Tu mano solo la ves tú: el servidor la oculta",
+            "Bots para practicar sin arriesgar tu Elo",
           ],
         },
       ],
@@ -590,7 +623,7 @@ export const STRINGS: Record<Lang, Strings> = {
       description:
         "Mythic Lobby es la app donde gamers arman squad, compiten en torneos con árbitros y transmiten en vivo. Filtros por rank, rol, horario y región. Voz integrada por partida.",
       mobileAppDescription:
-        "Arma squad, organiza partidas y retos, compite en torneos, transmite tu pantalla, habla por voz y juega minijuegos como ajedrez y Battle Squad. MLBB, Free Fire, COD Mobile y más, sin Discord.",
+        "Arma squad, organiza partidas y retos, compite en torneos, transmite tu pantalla, habla por voz y juega minijuegos como dominó, parchís, ajedrez y Battle Squad. MLBB, Free Fire, COD Mobile y más, sin Discord.",
     },
   },
   en: {
@@ -633,7 +666,7 @@ export const STRINGS: Record<Lang, Strings> = {
     },
     highlights: [
       { value: "14", label: "supported games" },
-      { value: "3", label: "minigames for your squad" },
+      { value: "6", label: "minigames for your squad" },
       { value: "1–100", label: "levels with rewards" },
       { value: "ES · EN · PT", label: "in-app languages" },
     ],
@@ -803,6 +836,39 @@ export const STRINGS: Record<Lang, Strings> = {
             "Room code to challenge a friend",
             "AI on 3 levels to practice",
             "Games against the AI never touch your Elo",
+          ],
+        },
+        {
+          name: "Dominoes",
+          meta: "2v2 · Elo · Bots",
+          desc: "Double-nine dominoes in pairs, the classic way, with its own Elo.",
+          bullets: [
+            "Quick match against other pairs online",
+            "Table with friends: you pick your partner",
+            "Find 2 online rivals with your partner",
+            "Bots fill empty seats, and those games never touch your Elo",
+          ],
+        },
+        {
+          name: "Parchís",
+          meta: "2-4 players · Elo",
+          desc: "Four-color Parchís (Ludo) with two dice, bridges, safe squares and captures.",
+          bullets: [
+            "Capturing a piece gives you +20 squares",
+            "Doubles roll again; on the third, your piece goes home",
+            "Bridges that block everyone",
+            "Play with friends, online players, or fill with bots",
+          ],
+        },
+        {
+          name: "Cartas Locas",
+          meta: "2-4 players · Elo",
+          desc: "A colorful card game: +2, +4, skip, reverse and wild cards. First to empty their hand wins.",
+          bullets: [
+            "Quick online matches or a table with friends",
+            "Cards that punish the next player",
+            "Only you see your hand: the server keeps it hidden",
+            "Bots to practice without risking your Elo",
           ],
         },
       ],
@@ -1006,7 +1072,7 @@ export const STRINGS: Record<Lang, Strings> = {
       description:
         "Mythic Lobby is the app where gamers find a squad, compete in refereed tournaments and stream live. Filter by rank, role, schedule and region. Built-in voice per match.",
       mobileAppDescription:
-        "Build a squad, schedule matches and challenges, compete in tournaments, share your screen, talk by voice and play minigames like chess and Battle Squad. MLBB, Free Fire, COD Mobile and more, no Discord.",
+        "Build a squad, schedule matches and challenges, compete in tournaments, share your screen, talk by voice and play minigames like dominoes, Parchís, chess and Battle Squad. MLBB, Free Fire, COD Mobile and more, no Discord.",
     },
   },
 };

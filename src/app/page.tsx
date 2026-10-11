@@ -9,7 +9,7 @@ import { IndependenceNotice } from "@/app/_components/independence-notice";
 const PLAY_STORE_URL =
   process.env.NEXT_PUBLIC_PLAY_STORE_URL ??
   "https://play.google.com/store/apps/details?id=com.mythiclobby.app";
-const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.1.11";
+const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.1.12";
 const CONTACT_EMAIL = "jorgegmdgonzalez@gmail.com";
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -71,6 +71,10 @@ const ARCADE_ART: Record<string, { src: string; cover: boolean }> = {
   Chess: { src: "/minigames/chess-logo.jpg", cover: true },
   Damas: { src: "/minigames/checkers-logo.jpg", cover: true },
   Checkers: { src: "/minigames/checkers-logo.jpg", cover: true },
+  Dominó: { src: "/minigames/hub/domino.webp", cover: true },
+  Dominoes: { src: "/minigames/hub/domino.webp", cover: true },
+  Parchís: { src: "/minigames/hub/parchis.webp", cover: true },
+  "Cartas Locas": { src: "/minigames/hub/cartas.webp", cover: true },
 };
 
 function useLang(): [Lang, (l: Lang) => void] {
