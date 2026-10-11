@@ -57,9 +57,9 @@ No compartimos datos personales con ningún otro tercero salvo orden judicial v�
 
 La app puede mostrar anuncios de Google AdMob. Para mostrarlos y medirlos, el SDK de AdMob recoge el ID de publicidad del dispositivo, la dirección IP (para una ubicación aproximada), información del dispositivo y cómo interactúas con los anuncios. Google trata esos datos según su política: [policies.google.com/technologies/ads](https://policies.google.com/technologies/ads).
 
-- **Anuncios personalizados:** si estás en el Espacio Económico Europeo, Reino Unido, Suiza o en estados de EE. UU. con leyes de privacidad, te pediremos permiso antes de mostrarlos y puedes cambiar tu elección desde la app.
+- **Anuncios personalizados:** si estás en el Espacio Económico Europeo, Reino Unido, Suiza o en estados de EE. UU. con leyes de privacidad, te pediremos permiso antes de mostrarlos y puedes cambiar tu elección con el botón "Opciones de anuncios" al final de la política de privacidad dentro de la app.
 - **Desactivar la personalización:** en Android, ve a Ajustes > Google > Anuncios y elimina o restablece tu ID de publicidad. Seguirás viendo anuncios, pero no personalizados.
-- **Menores de 18:** no mostramos anuncios personalizados a quien indique ser menor de edad, y los anuncios se limitan a contenido apto para adolescentes.
+- Los anuncios se limitan a contenido apto para adolescentes.
 - Nunca mostramos anuncios durante llamadas de voz ni transmisiones.
 
 ## 4. Tus derechos
