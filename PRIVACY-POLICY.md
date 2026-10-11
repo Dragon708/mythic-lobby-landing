@@ -1,6 +1,6 @@
 # Política de Privacidad — Mythic Lobby
 
-**Última actualización:** 30 de mayo de 2026
+**Última actualización:** 11 de octubre de 2026
 **Aplicación:** Mythic Lobby (`com.mythiclobby.app`)
 **Contacto:** jorgegmdgonzalez@gmail.com
 
@@ -18,15 +18,17 @@ Mythic Lobby ("la app", "nosotros") respeta tu privacidad. Esta política explic
 
 ### 1.2 Datos técnicos generados automáticamente
 - **Identificadores:** UUID del usuario, ID de dispositivo, token de notificaciones.
-- **Telemetría mínima de errores:** stack trace, plataforma, versión, fecha. Sin datos personales.
+- **Telemetría de errores:** stack trace, plataforma, versión, fecha, a través de Sentry.
+- **Analítica de uso:** pantallas visitadas, eventos de la app, país aproximado (por IP) y calidad de la conexión de voz, a través de PostHog.
+- **ID de publicidad de Android:** lo usa Google AdMob para mostrar y medir anuncios (ver sección 3.1).
 - **Presencia:** última conexión, estado actual.
 - **Permisos solicitados:** micrófono, notificaciones, cámara, galería, calendario.
 
 ### 1.3 Lo que NO recolectamos
 - No vendemos datos personales a terceros.
-- No usamos cookies de seguimiento publicitario.
+- No usamos tus mensajes, chats ni conversaciones de voz para publicidad.
 - No accedemos a contactos, llamadas, SMS ni archivos fuera de los pedidos por el usuario.
-- No grabamos las conversaciones de voz; solo se transmiten en tiempo real vía LiveKit.
+- No grabamos las conversaciones de voz; solo se transmiten en tiempo real por nuestro propio servidor de voz.
 
 ## 2. Cómo usamos esos datos
 
@@ -35,17 +37,30 @@ Mythic Lobby ("la app", "nosotros") respeta tu privacidad. Esta política explic
 - Conectarte con equipos y partidas.
 - Entregar mensajes y notificaciones.
 - Hacer cumplir nuestras Reglas de Comunidad.
-- Mejorar la app a partir de errores reportados de manera anónima.
+- Mejorar la app a partir de errores reportados y estadísticas de uso.
+- Mostrar anuncios que ayudan a mantener la app gratuita.
 
 ## 3. Con quién compartimos datos
 
 - **Supabase Inc.** — backend (base de datos, autenticación, almacenamiento, realtime). Hospedado en EE. UU.
-- **LiveKit Inc.** — infraestructura del chat de voz. Transmite la voz en tiempo real sin almacenarla.
+- **Servidor de voz propio** (software LiveKit, alojado en Hetzner, EE. UU.) — transmite la voz en tiempo real sin almacenarla.
 - **Pushy** — entrega de notificaciones push.
-- **Google Firebase** — configuración de Google sign-in y Google Play Services.
+- **Google** — inicio de sesión con Google y Google Play Services.
+- **Google AdMob** — anuncios dentro de la app (ver 3.1).
+- **PostHog** — analítica de uso de la app.
+- **Sentry** — registro de errores y fallos de la app.
 - **Otros usuarios** — ven tu perfil público y los mensajes que envías en chats compartidos.
 
 No compartimos datos personales con ningún otro tercero salvo orden judicial válida.
+
+### 3.1 Anuncios (Google AdMob)
+
+La app puede mostrar anuncios de Google AdMob. Para mostrarlos y medirlos, el SDK de AdMob recoge el ID de publicidad del dispositivo, la dirección IP (para una ubicación aproximada), información del dispositivo y cómo interactúas con los anuncios. Google trata esos datos según su política: [policies.google.com/technologies/ads](https://policies.google.com/technologies/ads).
+
+- **Anuncios personalizados:** si estás en el Espacio Económico Europeo, Reino Unido, Suiza o en estados de EE. UU. con leyes de privacidad, te pediremos permiso antes de mostrarlos y puedes cambiar tu elección desde la app.
+- **Desactivar la personalización:** en Android, ve a Ajustes > Google > Anuncios y elimina o restablece tu ID de publicidad. Seguirás viendo anuncios, pero no personalizados.
+- **Menores de 18:** no mostramos anuncios personalizados a quien indique ser menor de edad, y los anuncios se limitan a contenido apto para adolescentes.
+- Nunca mostramos anuncios durante llamadas de voz ni transmisiones.
 
 ## 4. Tus derechos
 
@@ -55,7 +70,7 @@ Como usuario puedes en cualquier momento:
 - **Corregir** información incorrecta editando tu perfil dentro de la app.
 - **Eliminar tu cuenta** desde Ajustes > Cuenta. La eliminación es permanente.
 - **Exportar** tus datos pidiéndolo al correo de contacto.
-- **Retirar consentimiento** dejando de usar la app y eliminando la cuenta.
+- **Retirar consentimiento** dejando de usar la app y eliminando la cuenta, o cambiando tu elección de anuncios personalizados dentro de la app.
 
 ## 5. Retención
 
