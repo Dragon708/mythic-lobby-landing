@@ -209,7 +209,7 @@ export const STRINGS: Record<Lang, Strings> = {
       ctaFeatures: "Ver características",
       playStoreTop: "Descarga gratis en",
       playStoreBottom: "Google Play",
-      bullets: ["100% gratis", "Sin anuncios", "Voz y streams integrados", "Hecho por gamers"],
+      bullets: ["100% gratis", "Sin pagos obligatorios", "Voz y streams integrados", "Hecho por gamers"],
       cardLiveLabel: "En vivo",
       cardLiveValue: "Ranked MLBB · 12 mirando",
       cardVoiceLabel: "Sala de voz",
@@ -475,7 +475,7 @@ export const STRINGS: Record<Lang, Strings> = {
       titlePart1: "Esta app la",
       titleHighlight: "sostiene la comunidad",
       subtitle:
-        "El 100% de lo que entra va a servidores, notificaciones push y el chat de voz. No hay anuncios ni venta de datos. Cualquier monto ayuda a mantenerla viva.",
+        "El 100% de lo que entra va a servidores, notificaciones push y el chat de voz. No vendemos tus datos, y si aportas dejas de ver banners y anuncios entre partidas. Cualquier monto ayuda a mantenerla viva.",
       methods: [
         { label: "USDT", sub: "TRC-20" },
         { label: "BTC", sub: "On-chain" },
@@ -491,7 +491,7 @@ export const STRINGS: Record<Lang, Strings> = {
       items: [
         {
           q: "¿Es gratis?",
-          a: "Sí, 100%. No hay anuncios ni planes premium. Los diamantes para la tienda se ganan jugando, con tareas, cofres y logros. Si quieres ayudar, puedes aportar desde Perfil → Apoyar.",
+          a: "Sí, 100%. No hay planes premium. Para cubrir costos hay algunos anuncios: banners al final de ciertas listas, uno entre partidas contra la IA de vez en cuando y un vídeo opcional que te da diamantes. Los diamantes para la tienda se ganan jugando, con tareas, cofres y logros. Si quieres ayudar, puedes aportar desde Perfil → Apoyar.",
         },
         {
           q: "¿Dónde la descargo?",
@@ -536,7 +536,7 @@ export const STRINGS: Record<Lang, Strings> = {
       subtitle: "Descarga la app, crea tu perfil y empieza a armar partidas, retos y streams en minutos.",
       button: "Descargar gratis en Google Play",
       steps: ["Instala gratis", "Elige tus juegos", "Encuentra tu squad"],
-      footnote: "Para Android · Sin anuncios · Sin pagos obligatorios",
+      footnote: "Para Android · 100% gratis · Sin pagos obligatorios",
     },
     why: {
       eyebrow: "Por qué Mythic Lobby",
@@ -558,12 +558,12 @@ export const STRINGS: Record<Lang, Strings> = {
     },
     inlineCta: {
       title: "Tu próxima partida empieza aquí",
-      subtitle: "Gratis en Google Play. Sin anuncios. Te registras en un minuto.",
+      subtitle: "Gratis en Google Play. Te registras en un minuto.",
       button: "Descargar gratis",
     },
     sticky: {
       title: "Mythic Lobby",
-      subtitle: "Gratis · Sin anuncios",
+      subtitle: "Gratis · Sin pagos obligatorios",
       button: "Instalar",
     },
     partnership: {
@@ -625,7 +625,7 @@ export const STRINGS: Record<Lang, Strings> = {
       ctaFeatures: "See features",
       playStoreTop: "Get it free on",
       playStoreBottom: "Google Play",
-      bullets: ["100% free", "No ads", "Built-in voice and streams", "Built by gamers"],
+      bullets: ["100% free", "No required payments", "Built-in voice and streams", "Built by gamers"],
       cardLiveLabel: "Live",
       cardLiveValue: "MLBB Ranked · 12 watching",
       cardVoiceLabel: "Voice room",
@@ -891,7 +891,7 @@ export const STRINGS: Record<Lang, Strings> = {
       titlePart1: "This app is",
       titleHighlight: "community-funded",
       subtitle:
-        "100% of contributions go to servers, push notifications and voice chat. No ads, no data selling. Any amount helps keep it alive.",
+        "100% of contributions go to servers, push notifications and voice chat. We don't sell your data, and supporters stop seeing banners and ads between games. Any amount helps keep it alive.",
       methods: [
         { label: "USDT", sub: "TRC-20" },
         { label: "BTC", sub: "On-chain" },
@@ -907,7 +907,7 @@ export const STRINGS: Record<Lang, Strings> = {
       items: [
         {
           q: "Is it free?",
-          a: "Yes, 100%. No ads and no premium plans. Shop diamonds are earned by playing, with tasks, chests and achievements. If you want to help, you can contribute from Profile → Support.",
+          a: "Yes, 100%. No premium plans. To cover costs there are a few ads: banners at the end of some lists, an occasional one between games against the AI, and an optional video that gives you diamonds. Shop diamonds are earned by playing, with tasks, chests and achievements. If you want to help, you can contribute from Profile → Support.",
         },
         {
           q: "Where do I get it?",
@@ -952,7 +952,7 @@ export const STRINGS: Record<Lang, Strings> = {
       subtitle: "Download the app, build your profile and start setting up matches, challenges and streams in minutes.",
       button: "Get it free on Google Play",
       steps: ["Install for free", "Pick your games", "Find your squad"],
-      footnote: "For Android · No ads · No required payments",
+      footnote: "For Android · 100% free · No required payments",
     },
     why: {
       eyebrow: "Why Mythic Lobby",
@@ -974,12 +974,12 @@ export const STRINGS: Record<Lang, Strings> = {
     },
     inlineCta: {
       title: "Your next match starts here",
-      subtitle: "Free on Google Play. No ads. Sign up in a minute.",
+      subtitle: "Free on Google Play. Sign up in a minute.",
       button: "Download free",
     },
     sticky: {
       title: "Mythic Lobby",
-      subtitle: "Free · No ads",
+      subtitle: "Free · No required payments",
       button: "Install",
     },
     partnership: {

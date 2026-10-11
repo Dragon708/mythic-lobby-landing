@@ -9,7 +9,7 @@ import { IndependenceNotice } from "@/app/_components/independence-notice";
 const PLAY_STORE_URL =
   process.env.NEXT_PUBLIC_PLAY_STORE_URL ??
   "https://play.google.com/store/apps/details?id=com.mythiclobby.app";
-const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.1.7";
+const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.1.11";
 const CONTACT_EMAIL = "jorgegmdgonzalez@gmail.com";
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
