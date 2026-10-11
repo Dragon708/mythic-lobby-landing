@@ -389,6 +389,39 @@ export const STRINGS: Record<Lang, Strings> = {
             "Las partidas contra la IA no tocan tu Elo",
           ],
         },
+        {
+          name: "Dominó",
+          meta: "2v2 · Elo · Bots",
+          desc: "Doble 9 por parejas, como en la mesa del barrio: pégate primero y gana la mano para tu pareja.",
+          bullets: [
+            "Mesa de 4 online con ranking Elo",
+            "Crea una mesa con código y elige quién es tu pareja",
+            "Bots que piensan su jugada para practicar",
+            "Arrastra la ficha a la punta que quieras",
+          ],
+        },
+        {
+          name: "Parchís",
+          meta: "2-4 · Elo · Bots",
+          desc: "Parchís de 2 a 4 jugadores con dos dados, puentes y capturas que cuentan 20.",
+          bullets: [
+            "Dobles repiten; tres dobles seguidos y tu ficha vuelve a casa",
+            "Come una ficha rival y avanza 20 casillas",
+            "Online con amigos o contra bots",
+            "Chat de voz en la mesa",
+          ],
+        },
+        {
+          name: "Cartas Locas",
+          meta: "2-4 · Elo · Bots",
+          desc: "Cartas rápidas de 2 a 4: tira color o número, usa comodines y quédate sin cartas primero.",
+          bullets: [
+            "Salta, Reversa, +2, +4 y comodín de color",
+            "Partida rápida online o mesa con amigos",
+            "Bots para practicar cuando quieras",
+            "Partidas cortas, ideales mientras esperas al squad",
+          ],
+        },
       ],
       comingSoon:
         "Y estamos cocinando más: Mythic Conquest, un juego de territorios por equipos, ya está en pruebas.",
@@ -590,7 +623,7 @@ export const STRINGS: Record<Lang, Strings> = {
       description:
         "Mythic Lobby es la app donde gamers arman squad, compiten en torneos con árbitros y transmiten en vivo. Filtros por rank, rol, horario y región. Voz integrada por partida.",
       mobileAppDescription:
-        "Arma squad, organiza partidas y retos, compite en torneos, transmite tu pantalla, habla por voz y juega minijuegos como ajedrez y Battle Squad. MLBB, Free Fire, COD Mobile y más, sin Discord.",
+        "Arma squad, organiza partidas y retos, compite en torneos, transmite tu pantalla, habla por voz y juega minijuegos como dominó, parchís, ajedrez y Battle Squad. MLBB, Free Fire, COD Mobile y más, sin Discord.",
     },
   },
   en: {
@@ -805,6 +838,39 @@ export const STRINGS: Record<Lang, Strings> = {
             "Games against the AI never touch your Elo",
           ],
         },
+        {
+          name: "Dominoes",
+          meta: "2v2 · Elo · Bots",
+          desc: "Double-9 dominoes in pairs: go out first and win the hand for your team.",
+          bullets: [
+            "4-player online tables with an Elo ranking",
+            "Create a table with a code and pick your partner",
+            "Bots that think before they play, for practice",
+            "Drag your tile to the end you want",
+          ],
+        },
+        {
+          name: "Parchís",
+          meta: "2-4 · Elo · Bots",
+          desc: "Parchís for 2 to 4 players with two dice, bridges and captures worth 20.",
+          bullets: [
+            "Doubles roll again; three doubles in a row sends your piece home",
+            "Capture a rival piece and move 20 spaces",
+            "Online with friends or against bots",
+            "Voice chat at the table",
+          ],
+        },
+        {
+          name: "Crazy Cards",
+          meta: "2-4 · Elo · Bots",
+          desc: "Fast cards for 2 to 4: match color or number, play wilds and be the first to run out.",
+          bullets: [
+            "Skip, Reverse, +2, +4 and color wilds",
+            "Quick online match or a table with friends",
+            "Bots to practice anytime",
+            "Short games, perfect while you wait for the squad",
+          ],
+        },
       ],
       comingSoon:
         "And there's more cooking: Mythic Conquest, a team territory game, is already in testing.",
@@ -1006,7 +1072,7 @@ export const STRINGS: Record<Lang, Strings> = {
       description:
         "Mythic Lobby is the app where gamers find a squad, compete in refereed tournaments and stream live. Filter by rank, role, schedule and region. Built-in voice per match.",
       mobileAppDescription:
-        "Build a squad, schedule matches and challenges, compete in tournaments, share your screen, talk by voice and play minigames like chess and Battle Squad. MLBB, Free Fire, COD Mobile and more, no Discord.",
+        "Build a squad, schedule matches and challenges, compete in tournaments, share your screen, talk by voice and play minigames like dominoes, parchís, chess and Battle Squad. MLBB, Free Fire, COD Mobile and more, no Discord.",
     },
   },
 };
