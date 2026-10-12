@@ -271,7 +271,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           title: "Voz y pantalla compartida",
-          desc: "Sala de voz por equipo y por partida, que sigue activa con la pantalla apagada. Toca Transmitir y los de la sala ven tu juego.",
+          desc: "Sala de voz por equipo y por partida, que sigue activa con la pantalla apagada. Toca Transmitir y los de la sala ven tu juego, y si quieres lo grabas en tu teléfono.",
         },
         {
           title: "Chats y mensajes directos",
@@ -279,7 +279,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           title: "Notificaciones que llegan",
-          desc: "Push que no depende de los servicios de Google y aguanta los ahorros de batería de Xiaomi, Huawei u OPPO. Te avisa de invitaciones, retos y menciones.",
+          desc: "Push que no depende de los servicios de Google y aguanta los ahorros de batería de Xiaomi, Huawei u OPPO. Un aviso por chat con foto y nombre, y respondes desde la misma notificación.",
         },
         {
           title: "Perfil multi-juego",
@@ -338,6 +338,7 @@ export const STRINGS: Record<Lang, Strings> = {
         "Todos pueden mirar, pero solo hablan los que tú invites",
         "Pantalla completa en horizontal para ver el juego en grande",
         "Contador en vivo de cuántos están mirando",
+        "Botón Grabar: guarda la transmisión en tu galería, con pantalla y voces",
       ],
       note: "En Android el audio del juego no se transmite, solo la pantalla y la voz de la sala. Activa No molestar para que no se vean tus notificaciones.",
       tabTitle: "En vivo",
@@ -540,7 +541,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "¿Puedo transmitir mi partida?",
-          a: "Sí. Desde una sala de voz toca Transmitir y los demás ven tu pantalla, o abre tu propia sala desde la pestaña En vivo. En Android se transmite la imagen y la voz de la sala, pero no el audio del juego.",
+          a: "Sí. Desde una sala de voz toca Transmitir y los demás ven tu pantalla, o abre tu propia sala desde la pestaña En vivo. En Android se transmite la imagen y la voz de la sala, pero no el audio del juego. También puedes grabarla y queda guardada en tu galería; todos en la sala ven un aviso de que estás grabando.",
         },
         {
           q: "¿Funciona si mi conexión es mala o Google está limitado?",
@@ -720,7 +721,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           title: "Voice and screen share",
-          desc: "A voice room per team and per match that keeps going with the screen off. Tap Stream and the room sees your game.",
+          desc: "A voice room per team and per match that keeps going with the screen off. Tap Stream and the room sees your game, and you can record it to your phone.",
         },
         {
           title: "Chats and DMs",
@@ -728,7 +729,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           title: "Notifications that arrive",
-          desc: "Push that doesn't rely on Google services and survives Xiaomi, Huawei or OPPO battery savers. Pings you on invites, challenges and mentions.",
+          desc: "Push that doesn't rely on Google services and survives Xiaomi, Huawei or OPPO battery savers. One notification per chat with photo and name, and you reply right from it.",
         },
         {
           title: "Multi-game profile",
@@ -787,6 +788,7 @@ export const STRINGS: Record<Lang, Strings> = {
         "Anyone can watch, only the people you invite can talk",
         "Landscape fullscreen to see the game big",
         "Live count of how many are watching",
+        "Record button: saves the stream to your gallery, screen and voices included",
       ],
       note: "On Android the game's audio isn't streamed, only the screen and the room's voice. Turn on Do Not Disturb so your notifications don't show.",
       tabTitle: "Live",
@@ -989,7 +991,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "Can I stream my match?",
-          a: "Yes. In a voice room tap Stream and everyone sees your screen, or open your own room from the Live tab. On Android the picture and the room's voice are streamed, but not the game's audio.",
+          a: "Yes. In a voice room tap Stream and everyone sees your screen, or open your own room from the Live tab. On Android the picture and the room's voice are streamed, but not the game's audio. You can also record it and it's saved to your gallery; everyone in the room sees a notice that you're recording.",
         },
         {
           q: "Does it work on a bad connection or where Google is restricted?",
