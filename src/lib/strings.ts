@@ -354,7 +354,7 @@ export const STRINGS: Record<Lang, Strings> = {
       titlePart1: "Algo para jugar",
       titleHighlight: "mientras esperas al squad",
       subtitle:
-        "Partidas rápidas dentro de la app, contra amigos, contra otros jugadores o contra la IA. Con voz integrada y XP para tu perfil.",
+        "Todos en la pestaña Arcade de la app: partidas rápidas contra amigos, contra otros jugadores o contra la IA. Con voz integrada y XP para tu perfil.",
       items: [
         {
           name: "Mythic Battle Squad",
@@ -803,7 +803,7 @@ export const STRINGS: Record<Lang, Strings> = {
       titlePart1: "Something to play",
       titleHighlight: "while you wait for the squad",
       subtitle:
-        "Quick matches inside the app, against friends, other players or the AI. With built-in voice and XP for your profile.",
+        "All in the app's Arcade tab: quick matches against friends, other players or the AI. With built-in voice and XP for your profile.",
       items: [
         {
           name: "Mythic Battle Squad",

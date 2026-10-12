@@ -64,13 +64,14 @@ const GAME_ICONS: Record<string, string> = {
 };
 
 // Arte de cada minijuego (copiado de assets/ del repo de la app), keyeado por
-// el `name` de strings.ts. `cover` = el arte llena la caja en vez de verse como logo.
-const ARCADE_ART: Record<string, { src: string; cover: boolean }> = {
-  "Mythic Battle Squad": { src: "/minigames/mbs-logo.webp", cover: false },
-  Ajedrez: { src: "/minigames/chess-logo.jpg", cover: true },
-  Chess: { src: "/minigames/chess-logo.jpg", cover: true },
-  Damas: { src: "/minigames/checkers-logo.jpg", cover: true },
-  Checkers: { src: "/minigames/checkers-logo.jpg", cover: true },
+// el `name` de strings.ts. `cover` = el arte llena la caja en vez de verse como logo;
+// `position` mueve el recorte cuando lo importante del arte no está centrado.
+const ARCADE_ART: Record<string, { src: string; cover: boolean; position?: string }> = {
+  "Mythic Battle Squad": { src: "/minigames/hub/battle-squad.webp", cover: true, position: "center 68%" },
+  Ajedrez: { src: "/minigames/hub/chess.webp", cover: true },
+  Chess: { src: "/minigames/hub/chess.webp", cover: true },
+  Damas: { src: "/minigames/hub/checkers.webp", cover: true },
+  Checkers: { src: "/minigames/hub/checkers.webp", cover: true },
   Dominó: { src: "/minigames/hub/domino.webp", cover: true },
   Dominoes: { src: "/minigames/hub/domino.webp", cover: true },
   Parchís: { src: "/minigames/hub/parchis.webp", cover: true },
@@ -711,7 +712,8 @@ function Arcade({ t }: { t: T }) {
                       alt={g.name}
                       width={400}
                       height={300}
-                      className={art.cover ? "w-full h-full object-cover" : "h-32 w-auto object-contain drop-shadow-[0_12px_30px_rgba(124,92,255,0.5)]"}
+                      style={art.position ? { objectPosition: art.position } : undefined}
+                      className={art.cover ? "absolute inset-0 w-full h-full object-cover" : "h-32 w-auto object-contain drop-shadow-[0_12px_30px_rgba(124,92,255,0.5)]"}
                     />
                   ) : (
                     <IconController className="w-10 h-10 text-primary" />
