@@ -283,7 +283,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           title: "Perfil multi-juego",
-          desc: "Rank, rol y mains por cada juego. Tu Player ID copiable con un toque, nivel, títulos, insignias y logros a la vista.",
+          desc: "Rank, rol y mains por cada juego. Toca un juego en el perfil de otro jugador y ves su ID, servidor, rango y roles, listos para copiar. Nivel, títulos, insignias y logros a la vista.",
         },
         {
           title: "Guías y tier lists",
@@ -334,7 +334,8 @@ export const STRINGS: Record<Lang, Strings> = {
       subtitle:
         "Comparte la pantalla desde cualquier sala de voz y tu squad ve lo que estás jugando en tiempo real. La pestaña En vivo muestra todas las partidas que se están transmitiendo ahora mismo.",
       bullets: [
-        "Botón Transmitir para abrir tu propia sala de stream",
+        "Botón Transmitir con tu propia vista de streamer: silenciar, pausar y salir",
+        "Pausa o termina el stream desde la notificación, sin volver a la app",
         "Todos pueden mirar, pero solo hablan los que tú invites",
         "Pantalla completa en horizontal para ver el juego en grande",
         "Contador en vivo de cuántos están mirando",
@@ -733,7 +734,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           title: "Multi-game profile",
-          desc: "Rank, role and mains per game. Player ID copyable in one tap, plus your level, titles, badges and achievements.",
+          desc: "Rank, role and mains per game. Tap a game on another player's profile to see their ID, server, rank and roles, ready to copy. Plus level, titles, badges and achievements.",
         },
         {
           title: "Guides and tier lists",
@@ -784,7 +785,8 @@ export const STRINGS: Record<Lang, Strings> = {
       subtitle:
         "Share your screen from any voice room and your squad watches what you're playing in real time. The Live tab shows every match being streamed right now.",
       bullets: [
-        "Stream button to open your own stream room",
+        "Stream button with your own streamer view: mute, pause and leave",
+        "Pause or end the stream from the notification, without going back to the app",
         "Anyone can watch, only the people you invite can talk",
         "Landscape fullscreen to see the game big",
         "Live count of how many are watching",
