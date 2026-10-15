@@ -236,7 +236,7 @@ export const STRINGS: Record<Lang, Strings> = {
       cardVoiceValue: "5 hablando ahora",
     },
     highlights: [
-      { value: "15", label: "juegos soportados" },
+      { value: "16", label: "juegos soportados" },
       { value: "6", label: "minijuegos con tu squad" },
       { value: "1–100", label: "niveles con recompensas" },
       { value: "ES · EN · PT", label: "idiomas en la app" },
@@ -247,7 +247,7 @@ export const STRINGS: Record<Lang, Strings> = {
       titleHighlight: "Todos tus juegos.",
       titlePart2: "",
       subtitle:
-        "Soporte completo para 15 juegos competitivos (mobile y PC). Rank, rol, mains y stats independientes por cada uno.",
+        "Soporte completo para 16 juegos competitivos (mobile y PC). Rank, rol, mains y stats independientes por cada uno, con estadísticas reales del juego en Dota 2, Clash Royale, Clash of Clans, Albion Online y World of Warcraft.",
       liveLabel: "Disponible",
       items: [
         { name: "Mobile Legends", tag: "MOBA 5v5" },
@@ -263,6 +263,7 @@ export const STRINGS: Record<Lang, Strings> = {
         { name: "Clash of Clans", tag: "Clan Wars" },
         { name: "Rise of Kingdoms", tag: "Estrategia" },
         { name: "Albion Online", tag: "MMORPG" },
+        { name: "World of Warcraft", tag: "MMORPG · PC" },
         { name: "Skylore", tag: "MMORPG" },
         { name: "Neo Monsters", tag: "RPG Coleccionable" },
       ],
@@ -350,7 +351,7 @@ export const STRINGS: Record<Lang, Strings> = {
     },
     pc: {
       chip: "Nuevo · App de PC",
-      titlePart1: "¿Juegas Dota 2 o CS2?",
+      titlePart1: "¿Juegas Dota 2, CS2 o WoW?",
       titleHighlight: "Mythic Lobby ya está en PC",
       subtitle:
         "La app de Windows va al lado de tu juego. Arma tu stack de 5, habla por voz mientras juegas y transmite la partida a tu sala con el sonido del juego.",
@@ -580,7 +581,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "¿Qué juegos están soportados?",
-          a: "15 juegos: Mobile Legends, Free Fire, COD Mobile, Honor of Kings, PUBG Mobile, Blood Strike, Counter-Strike 2, Dota 2, EA SPORTS FC Mobile, Clash Royale, Clash of Clans, Rise of Kingdoms, Albion Online, Skylore y Neo Monsters, con rank, rol, mains y stats independientes por juego.",
+          a: "16 juegos: Mobile Legends, Free Fire, COD Mobile, Honor of Kings, PUBG Mobile, Blood Strike, Counter-Strike 2, Dota 2, EA SPORTS FC Mobile, Clash Royale, Clash of Clans, Rise of Kingdoms, Albion Online, World of Warcraft, Skylore y Neo Monsters, con rank, rol, mains y stats independientes por juego. En Dota 2, Clash Royale, Clash of Clans, Albion Online y World of Warcraft conectas tu cuenta y tus estadísticas reales salen en tu perfil.",
         },
         {
           q: "¿Cómo funcionan los retos y torneos?",
@@ -722,7 +723,7 @@ export const STRINGS: Record<Lang, Strings> = {
       cardVoiceValue: "5 speaking now",
     },
     highlights: [
-      { value: "15", label: "supported games" },
+      { value: "16", label: "supported games" },
       { value: "6", label: "minigames for your squad" },
       { value: "1–100", label: "levels with rewards" },
       { value: "ES · EN · PT", label: "in-app languages" },
@@ -733,7 +734,7 @@ export const STRINGS: Record<Lang, Strings> = {
       titleHighlight: "All your games.",
       titlePart2: "",
       subtitle:
-        "Full support for 15 competitive games (mobile and PC). Independent rank, role, mains and stats per game.",
+        "Full support for 16 competitive games (mobile and PC). Independent rank, role, mains and stats per game, with real in-game stats for Dota 2, Clash Royale, Clash of Clans, Albion Online and World of Warcraft.",
       liveLabel: "Live",
       items: [
         { name: "Mobile Legends", tag: "5v5 MOBA" },
@@ -749,6 +750,7 @@ export const STRINGS: Record<Lang, Strings> = {
         { name: "Clash of Clans", tag: "Clan Wars" },
         { name: "Rise of Kingdoms", tag: "Strategy" },
         { name: "Albion Online", tag: "MMORPG" },
+        { name: "World of Warcraft", tag: "MMORPG · PC" },
         { name: "Skylore", tag: "MMORPG" },
         { name: "Neo Monsters", tag: "Collectible RPG" },
       ],
@@ -836,7 +838,7 @@ export const STRINGS: Record<Lang, Strings> = {
     },
     pc: {
       chip: "New · PC app",
-      titlePart1: "Play Dota 2 or CS2?",
+      titlePart1: "Play Dota 2, CS2 or WoW?",
       titleHighlight: "Mythic Lobby is now on PC",
       subtitle:
         "The Windows app sits next to your game. Build your 5-stack, talk by voice while you play and stream the match to your room with the game's sound.",
@@ -1066,7 +1068,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "Which games are supported?",
-          a: "15 games: Mobile Legends, Free Fire, COD Mobile, Honor of Kings, PUBG Mobile, Blood Strike, Counter-Strike 2, Dota 2, EA SPORTS FC Mobile, Clash Royale, Clash of Clans, Rise of Kingdoms, Albion Online, Skylore and Neo Monsters, with independent rank, role, mains and stats per game.",
+          a: "16 games: Mobile Legends, Free Fire, COD Mobile, Honor of Kings, PUBG Mobile, Blood Strike, Counter-Strike 2, Dota 2, EA SPORTS FC Mobile, Clash Royale, Clash of Clans, Rise of Kingdoms, Albion Online, World of Warcraft, Skylore and Neo Monsters, with independent rank, role, mains and stats per game. For Dota 2, Clash Royale, Clash of Clans, Albion Online and World of Warcraft you link your account and your real stats show on your profile.",
         },
         {
           q: "How do challenges and tournaments work?",

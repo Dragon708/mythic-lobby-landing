@@ -66,6 +66,7 @@ const GAME_ICONS: Record<string, string> = {
   "Clash of Clans": "/games/clash-of-clans.png",
   "Rise of Kingdoms": "/games/rise-of-kingdoms.png",
   "Albion Online": "/games/albion-online.png",
+  "World of Warcraft": "/games/world-of-warcraft.png",
   Skylore: "/games/skylore.png",
   "Neo Monsters": "/games/neo-monsters.png",
 };
