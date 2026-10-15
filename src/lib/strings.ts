@@ -30,7 +30,8 @@ export type Strings = {
     titlePart2: string;
     subtitle: string;
     ctaDownload: string;
-    ctaFeatures: string;
+    ctaWeb: string;
+    webNote: string;
     playStoreTop: string;
     playStoreBottom: string;
     bullets: string[];
@@ -138,6 +139,7 @@ export type Strings = {
     title: string;
     subtitle: string;
     button: string;
+    webButton: string;
     steps: string[];
     footnote: string;
   };
@@ -206,7 +208,8 @@ export const STRINGS: Record<Lang, Strings> = {
       subtitle:
         "Arma equipo, compite en torneos con árbitros, transmite tu partida en vivo y juega minijuegos con tu squad. Voz, chats y notificaciones en una sola app. Sin Discord.",
       ctaDownload: "Descargar en Google Play",
-      ctaFeatures: "Ver características",
+      ctaWeb: "Usar en el navegador",
+      webNote: "¿Estás en PC o no tienes Android? Abre Mythic Lobby en el navegador con tu misma cuenta.",
       playStoreTop: "Descarga gratis en",
       playStoreBottom: "Google Play",
       bullets: ["100% gratis", "Sin pagos obligatorios", "Voz y streams integrados", "Hecho por gamers"],
@@ -549,8 +552,12 @@ export const STRINGS: Record<Lang, Strings> = {
           a: "La app está pensada para eso. Las notificaciones no dependen de los servicios de Google, la voz se reconecta sola si se cae la señal y las salas te desconectan si te quedas solo para no gastar datos.",
         },
         {
+          q: "¿Puedo usarla en PC o en el navegador?",
+          a: "Sí. Entra en app.mythic.dsmarts.app con tu misma cuenta: chats, salas de voz, equipos y partidas funcionan desde el navegador.",
+        },
+        {
           q: "¿Hay versión para iPhone?",
-          a: "Por ahora solo Android, en Google Play. iOS llega más adelante.",
+          a: "La app nativa es solo para Android por ahora. En iPhone puedes usar la versión web desde el navegador, en app.mythic.dsmarts.app.",
         },
         {
           q: "¿Necesito Discord?",
@@ -570,8 +577,9 @@ export const STRINGS: Record<Lang, Strings> = {
       title: "Tu squad te está esperando.",
       subtitle: "Descarga la app, crea tu perfil y empieza a armar partidas, retos y streams en minutos.",
       button: "Descargar gratis en Google Play",
+      webButton: "Usar en el navegador",
       steps: ["Instala gratis", "Elige tus juegos", "Encuentra tu squad"],
-      footnote: "Para Android · 100% gratis · Sin pagos obligatorios",
+      footnote: "Android y navegador · 100% gratis · Sin pagos obligatorios",
     },
     why: {
       eyebrow: "Por qué Mythic Lobby",
@@ -657,7 +665,8 @@ export const STRINGS: Record<Lang, Strings> = {
       subtitle:
         "Build a team, compete in refereed tournaments, stream your match live and play minigames with your squad. Voice, chats and notifications in one app. No Discord.",
       ctaDownload: "Get it on Google Play",
-      ctaFeatures: "See features",
+      ctaWeb: "Use in your browser",
+      webNote: "On a PC or not on Android? Open Mythic Lobby in your browser with the same account.",
       playStoreTop: "Get it free on",
       playStoreBottom: "Google Play",
       bullets: ["100% free", "No required payments", "Built-in voice and streams", "Built by gamers"],
@@ -1000,8 +1009,12 @@ export const STRINGS: Record<Lang, Strings> = {
           a: "It's built for that. Notifications don't rely on Google services, voice reconnects on its own when the signal drops, and rooms disconnect you when you're alone so you don't burn data.",
         },
         {
+          q: "Can I use it on a PC or in the browser?",
+          a: "Yes. Go to app.mythic.dsmarts.app with the same account: chats, voice rooms, teams and matches work in the browser.",
+        },
+        {
           q: "Is there an iPhone version?",
-          a: "Android only for now, on Google Play. iOS comes later.",
+          a: "The native app is Android only for now. On iPhone you can use the web version in your browser at app.mythic.dsmarts.app.",
         },
         {
           q: "Do I need Discord?",
@@ -1021,8 +1034,9 @@ export const STRINGS: Record<Lang, Strings> = {
       title: "Your squad is waiting.",
       subtitle: "Download the app, build your profile and start setting up matches, challenges and streams in minutes.",
       button: "Get it free on Google Play",
+      webButton: "Use in your browser",
       steps: ["Install for free", "Pick your games", "Find your squad"],
-      footnote: "For Android · 100% free · No required payments",
+      footnote: "Android and browser · 100% free · No required payments",
     },
     why: {
       eyebrow: "Why Mythic Lobby",

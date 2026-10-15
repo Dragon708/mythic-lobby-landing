@@ -9,6 +9,7 @@ import { IndependenceNotice } from "@/app/_components/independence-notice";
 const PLAY_STORE_URL =
   process.env.NEXT_PUBLIC_PLAY_STORE_URL ??
   "https://play.google.com/store/apps/details?id=com.mythiclobby.app";
+const WEB_APP_URL = process.env.NEXT_PUBLIC_WEB_APP_URL ?? "https://app.mythic.dsmarts.app";
 const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.1.21";
 const CONTACT_EMAIL = "jorgegmdgonzalez@gmail.com";
 const SITE_URL =
@@ -322,11 +323,12 @@ function Hero({ t }: { t: T }) {
                 </span>
               </span>
             </a>
-            <a href="#features" className="btn-secondary">
-              <IconSparkles className="w-5 h-5" />
-              {t.hero.ctaFeatures}
+            <a href={WEB_APP_URL} className="btn-secondary">
+              <IconGlobe className="w-5 h-5" />
+              {t.hero.ctaWeb}
             </a>
           </div>
+          <p className="text-xs text-muted">{t.hero.webNote}</p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-3 text-xs text-muted">
             {t.hero.bullets.map((b) => (
               <Bullet key={b}>{b}</Bullet>
@@ -1058,7 +1060,7 @@ function CallToAction({ t }: { t: T }) {
                 </li>
               ))}
             </ol>
-            <div className="flex justify-center mt-7">
+            <div className="flex flex-wrap justify-center gap-3 mt-7">
               <a
                 href={playUrl}
                 target="_blank"
@@ -1067,6 +1069,10 @@ function CallToAction({ t }: { t: T }) {
               >
                 <IconGooglePlay className="w-5 h-5" />
                 {t.cta.button}
+              </a>
+              <a href={WEB_APP_URL} className="btn-secondary">
+                <IconGlobe className="w-5 h-5" />
+                {t.cta.webButton}
               </a>
             </div>
             <p className="text-xs text-muted mt-4">{t.cta.footnote}</p>
@@ -1218,6 +1224,13 @@ function IconSparkles({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 3v4" /><path d="M12 17v4" /><path d="M3 12h4" /><path d="M17 12h4" /><path d="m6 6 2 2" /><path d="m16 16 2 2" /><path d="m6 18 2-2" /><path d="m16 8 2-2" />
+    </svg>
+  );
+}
+function IconGlobe({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3a14 14 0 0 1 0 18" /><path d="M12 3a14 14 0 0 0 0 18" />
     </svg>
   );
 }
