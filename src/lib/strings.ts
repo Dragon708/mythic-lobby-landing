@@ -209,7 +209,7 @@ export const STRINGS: Record<Lang, Strings> = {
         "Arma equipo, compite en torneos con árbitros, transmite tu partida en vivo y juega minijuegos con tu squad. Voz, chats y notificaciones en una sola app. Sin Discord.",
       ctaDownload: "Descargar en Google Play",
       ctaWeb: "Usar en el navegador",
-      webNote: "¿Estás en PC o no tienes Android? Abre Mythic Lobby en el navegador con tu misma cuenta. Para transmitir o grabar tu partida usa la app de Android.",
+      webNote: "¿Estás en PC o no tienes Android? Abre Mythic Lobby en el navegador con tu misma cuenta.",
       playStoreTop: "Descarga gratis en",
       playStoreBottom: "Google Play",
       bullets: ["100% gratis", "Sin pagos obligatorios", "Voz y streams integrados", "Hecho por gamers"],
@@ -553,7 +553,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "¿Puedo usarla en PC o en el navegador?",
-          a: "Sí. Entra en app.mythic.dsmarts.app con tu misma cuenta: chats, salas de voz, equipos y partidas funcionan desde el navegador. Transmitir y grabar partidas solo está en la app de Android.",
+          a: "Sí. Entra en app.mythic.dsmarts.app con tu misma cuenta: chats, salas de voz, equipos y partidas funcionan desde el navegador.",
         },
         {
           q: "¿Hay versión para iPhone?",
@@ -666,7 +666,7 @@ export const STRINGS: Record<Lang, Strings> = {
         "Build a team, compete in refereed tournaments, stream your match live and play minigames with your squad. Voice, chats and notifications in one app. No Discord.",
       ctaDownload: "Get it on Google Play",
       ctaWeb: "Use in your browser",
-      webNote: "On a PC or not on Android? Open Mythic Lobby in your browser with the same account. To stream or record your match, use the Android app.",
+      webNote: "On a PC or not on Android? Open Mythic Lobby in your browser with the same account.",
       playStoreTop: "Get it free on",
       playStoreBottom: "Google Play",
       bullets: ["100% free", "No required payments", "Built-in voice and streams", "Built by gamers"],
@@ -1010,7 +1010,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "Can I use it on a PC or in the browser?",
-          a: "Yes. Go to app.mythic.dsmarts.app with the same account: chats, voice rooms, teams and matches work in the browser. Streaming and recording matches are only in the Android app.",
+          a: "Yes. Go to app.mythic.dsmarts.app with the same account: chats, voice rooms, teams and matches work in the browser.",
         },
         {
           q: "Is there an iPhone version?",
