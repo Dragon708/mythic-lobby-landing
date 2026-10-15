@@ -31,6 +31,7 @@ export type Strings = {
     subtitle: string;
     ctaDownload: string;
     ctaWeb: string;
+    ctaPc: string;
     webNote: string;
     playStoreTop: string;
     playStoreBottom: string;
@@ -140,6 +141,7 @@ export type Strings = {
     subtitle: string;
     button: string;
     webButton: string;
+    pcButton: string;
     steps: string[];
     footnote: string;
   };
@@ -209,7 +211,8 @@ export const STRINGS: Record<Lang, Strings> = {
         "Arma equipo, compite en torneos con árbitros, transmite tu partida en vivo y juega minijuegos con tu squad. Voz, chats y notificaciones en una sola app. Sin Discord.",
       ctaDownload: "Descargar en Google Play",
       ctaWeb: "Usar en el navegador",
-      webNote: "¿Estás en PC o no tienes Android? Abre Mythic Lobby en el navegador con tu misma cuenta.",
+      ctaPc: "Descargar para PC",
+      webNote: "¿Estás en PC o no tienes Android? Descarga la app para Windows o abre Mythic Lobby en el navegador con tu misma cuenta.",
       playStoreTop: "Descarga gratis en",
       playStoreBottom: "Google Play",
       bullets: ["100% gratis", "Sin pagos obligatorios", "Voz y streams integrados", "Hecho por gamers"],
@@ -553,7 +556,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "¿Puedo usarla en PC o en el navegador?",
-          a: "Sí. Entra en app.mythic.dsmarts.app con tu misma cuenta: chats, salas de voz, equipos y partidas funcionan desde el navegador.",
+          a: "Sí. En Windows puedes instalar la app de PC (botón «Descargar para PC»); si Windows avisa de que no reconoce la app, pulsa «Más información» y luego «Ejecutar de todas formas». También puedes entrar en app.mythic.dsmarts.app con tu misma cuenta: chats, salas de voz, equipos y partidas funcionan desde el navegador.",
         },
         {
           q: "¿Hay versión para iPhone?",
@@ -578,8 +581,9 @@ export const STRINGS: Record<Lang, Strings> = {
       subtitle: "Descarga la app, crea tu perfil y empieza a armar partidas, retos y streams en minutos.",
       button: "Descargar gratis en Google Play",
       webButton: "Usar en el navegador",
+      pcButton: "Descargar para PC",
       steps: ["Instala gratis", "Elige tus juegos", "Encuentra tu squad"],
-      footnote: "Android y navegador · 100% gratis · Sin pagos obligatorios",
+      footnote: "Android, PC y navegador · 100% gratis · Sin pagos obligatorios",
     },
     why: {
       eyebrow: "Por qué Mythic Lobby",
@@ -666,7 +670,8 @@ export const STRINGS: Record<Lang, Strings> = {
         "Build a team, compete in refereed tournaments, stream your match live and play minigames with your squad. Voice, chats and notifications in one app. No Discord.",
       ctaDownload: "Get it on Google Play",
       ctaWeb: "Use in your browser",
-      webNote: "On a PC or not on Android? Open Mythic Lobby in your browser with the same account.",
+      ctaPc: "Download for PC",
+      webNote: "On a PC or not on Android? Download the Windows app or open Mythic Lobby in your browser with the same account.",
       playStoreTop: "Get it free on",
       playStoreBottom: "Google Play",
       bullets: ["100% free", "No required payments", "Built-in voice and streams", "Built by gamers"],
@@ -1010,7 +1015,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "Can I use it on a PC or in the browser?",
-          a: "Yes. Go to app.mythic.dsmarts.app with the same account: chats, voice rooms, teams and matches work in the browser.",
+          a: "Yes. On Windows you can install the PC app (the “Download for PC” button); if Windows says it doesn't recognize the app, click “More info” and then “Run anyway”. You can also go to app.mythic.dsmarts.app with the same account: chats, voice rooms, teams and matches work in the browser.",
         },
         {
           q: "Is there an iPhone version?",
@@ -1035,8 +1040,9 @@ export const STRINGS: Record<Lang, Strings> = {
       subtitle: "Download the app, build your profile and start setting up matches, challenges and streams in minutes.",
       button: "Get it free on Google Play",
       webButton: "Use in your browser",
+      pcButton: "Download for PC",
       steps: ["Install for free", "Pick your games", "Find your squad"],
-      footnote: "Android and browser · 100% free · No required payments",
+      footnote: "Android, PC and browser · 100% free · No required payments",
     },
     why: {
       eyebrow: "Why Mythic Lobby",
