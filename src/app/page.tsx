@@ -15,7 +15,7 @@ const WEB_APP_URL = process.env.NEXT_PUBLIC_WEB_APP_URL ?? "https://app.mythic.d
 const PC_INSTALLER_URL =
   process.env.NEXT_PUBLIC_PC_INSTALLER_URL ??
   "https://dl.mythic.dsmarts.app/MythicLobby-Setup.exe";
-const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.1.21";
+const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.1.22";
 const CONTACT_EMAIL = "jorgegmdgonzalez@gmail.com";
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
@@ -60,6 +60,7 @@ const GAME_ICONS: Record<string, string> = {
   "PUBG Mobile": "/games/pubg-mobile.png",
   "Blood Strike": "/games/blood-strike.png",
   "Counter-Strike 2": "/games/counter-strike-2.png",
+  "Dota 2": "/games/dota-2.png",
   "EA SPORTS FC Mobile": "/games/fifa-mobile.png",
   "Clash Royale": "/games/clash-royale.png",
   "Clash of Clans": "/games/clash-of-clans.png",
@@ -130,6 +131,7 @@ export default function Home() {
         <Hero t={t} />
         <Highlights t={t} />
         <Games t={t} />
+        <PcGaming t={t} />
         <Features t={t} />
         <WhyUs t={t} />
         <Competitive t={t} />
@@ -236,6 +238,7 @@ function NavBar({ lang, setLang, t }: { lang: Lang; setLang: (l: Lang) => void; 
         </Link>
         <nav className="hidden md:flex items-center gap-6 text-sm text-soft">
           <a href="#games" className="hover:text-foreground transition">{t.nav.games}</a>
+          <a href="#pc" className="hover:text-foreground transition">{t.nav.pc}</a>
           <a href="#features" className="hover:text-foreground transition">{t.nav.features}</a>
           <a href="#competitive" className="hover:text-foreground transition">{t.nav.competitive}</a>
           <a href="#live" className="hover:text-foreground transition">{t.nav.live}</a>
@@ -450,6 +453,90 @@ function Games({ t }: { t: T }) {
               <p className="text-muted text-xs mt-0.5">{g.tag}</p>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PcGaming({ t }: { t: T }) {
+  const p = t.pc;
+  return (
+    <section id="pc" className="relative py-20 md:py-28">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <div className="card relative overflow-hidden p-6 sm:p-8 md:p-14 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-danger/15 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -right-20 w-80 h-80 rounded-full bg-primary/20 blur-3xl pointer-events-none" />
+          <div className="relative min-w-0">
+            <span className="chip mb-5">
+              <IconWindows className="w-3.5 h-3.5" />
+              {p.chip}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
+              {p.titlePart1} <span className="text-gradient">{p.titleHighlight}</span>.
+            </h2>
+            <p className="text-soft mt-4 leading-relaxed">{p.subtitle}</p>
+            <ul className="mt-6 space-y-3 text-soft">
+              {p.bullets.map((b) => (
+                <li key={b} className="flex gap-3">
+                  <IconCheck className="w-5 h-5 text-success mt-0.5 shrink-0" /> {b}
+                </li>
+              ))}
+            </ul>
+            <div className="flex flex-wrap gap-3 mt-8">
+              <a href={PC_INSTALLER_URL} className="btn-primary">
+                <IconWindows className="w-5 h-5" />
+                {t.hero.ctaPc}
+              </a>
+              <a href={WEB_APP_URL} className="btn-secondary">
+                <IconGlobe className="w-5 h-5" />
+                {t.hero.ctaWeb}
+              </a>
+            </div>
+            <p className="mt-6 text-xs text-muted leading-relaxed">{p.note}</p>
+          </div>
+          <div className="relative min-w-0">
+            <div className="card p-5 space-y-3 bg-[rgba(5,7,14,0.55)]">
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/games/dota-2.png"
+                  alt="Dota 2"
+                  width={44}
+                  height={44}
+                  className="w-11 h-11 rounded-xl border border-border shrink-0"
+                />
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-muted uppercase tracking-wider truncate">{p.roomLabel}</p>
+                  <p className="text-foreground font-bold truncate">{p.roomTitle}</p>
+                </div>
+                <span className="chip text-danger bg-danger/10 border-danger/30 shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-danger animate-pulse" />
+                  {t.voice.liveLabel}
+                </span>
+              </div>
+              <div className="divider" />
+              {p.users.map((u) => (
+                <div key={u.name} className="flex items-center gap-3">
+                  <div
+                    className={`w-9 h-9 rounded-full grid place-items-center text-foreground font-bold text-sm shrink-0 ${
+                      u.talking ? "bg-primary/25 ring-2 ring-primary" : "bg-surface-2 ring-1 ring-border"
+                    }`}
+                  >
+                    {u.name[0]}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-foreground text-sm font-semibold truncate">{u.name}</p>
+                    <p className="text-muted text-xs truncate">{u.role}</p>
+                  </div>
+                  <IconMic className={`w-4 h-4 shrink-0 ${u.talking ? "text-primary" : "text-muted"}`} />
+                </div>
+              ))}
+              <div className="divider" />
+              <p className="text-soft text-xs flex items-center gap-2">
+                <IconBroadcast className="w-4 h-4 text-danger shrink-0" /> {p.streamLabel}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

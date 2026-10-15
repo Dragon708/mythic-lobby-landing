@@ -17,6 +17,7 @@ export type Strings = {
     showcase: string;
     voice: string;
     games: string;
+    pc: string;
     donate: string;
     faq: string;
     partnership: string;
@@ -72,6 +73,18 @@ export type Strings = {
     refereeNote: string;
     semis: { a: string; b: string; winner: "a" | "b" }[];
     final: { a: string; b: string };
+  };
+  pc: {
+    chip: string;
+    titlePart1: string;
+    titleHighlight: string;
+    subtitle: string;
+    bullets: string[];
+    note: string;
+    roomLabel: string;
+    roomTitle: string;
+    streamLabel: string;
+    users: { name: string; role: string; talking: boolean }[];
   };
   live: {
     chip: string;
@@ -186,7 +199,7 @@ export const STRINGS: Record<Lang, Strings> = {
       siteName: "Mythic Lobby",
       tagline: "Encuentra tu squad. En cualquier juego. En cualquier rank.",
       description:
-        "Mythic Lobby es la app gratis donde gamers arman squad, compiten en torneos con árbitros, transmiten su partida en vivo y hablan por voz. MLBB, Free Fire, COD Mobile, PUBG Mobile, Clash Royale y más. Sin Discord.",
+        "Mythic Lobby es la app gratis donde gamers arman squad, compiten en torneos con árbitros, transmiten su partida en vivo y hablan por voz. MLBB, Free Fire, COD Mobile, Dota 2, CS2, PUBG Mobile y más. Sin Discord.",
     },
     nav: {
       features: "Características",
@@ -196,6 +209,7 @@ export const STRINGS: Record<Lang, Strings> = {
       showcase: "Cómo funciona",
       voice: "Voz",
       games: "Juegos",
+      pc: "PC",
       donate: "Apoyar",
       faq: "FAQ",
       partnership: "Colaborar",
@@ -222,7 +236,7 @@ export const STRINGS: Record<Lang, Strings> = {
       cardVoiceValue: "5 hablando ahora",
     },
     highlights: [
-      { value: "14", label: "juegos soportados" },
+      { value: "15", label: "juegos soportados" },
       { value: "6", label: "minijuegos con tu squad" },
       { value: "1–100", label: "niveles con recompensas" },
       { value: "ES · EN · PT", label: "idiomas en la app" },
@@ -233,7 +247,7 @@ export const STRINGS: Record<Lang, Strings> = {
       titleHighlight: "Todos tus juegos.",
       titlePart2: "",
       subtitle:
-        "Soporte completo para 14 juegos competitivos (mobile y PC). Rank, rol, mains y stats independientes por cada uno.",
+        "Soporte completo para 15 juegos competitivos (mobile y PC). Rank, rol, mains y stats independientes por cada uno.",
       liveLabel: "Disponible",
       items: [
         { name: "Mobile Legends", tag: "MOBA 5v5" },
@@ -243,6 +257,7 @@ export const STRINGS: Record<Lang, Strings> = {
         { name: "PUBG Mobile", tag: "Battle Royale" },
         { name: "Blood Strike", tag: "Battle Royale" },
         { name: "Counter-Strike 2", tag: "FPS Táctico" },
+        { name: "Dota 2", tag: "MOBA 5v5 · PC" },
         { name: "EA SPORTS FC Mobile", tag: "Fútbol" },
         { name: "Clash Royale", tag: "Card 1v1" },
         { name: "Clash of Clans", tag: "Clan Wars" },
@@ -333,6 +348,31 @@ export const STRINGS: Record<Lang, Strings> = {
       ],
       final: { a: "Night Owls", b: "Havana Kings" },
     },
+    pc: {
+      chip: "Nuevo · App de PC",
+      titlePart1: "¿Juegas Dota 2 o CS2?",
+      titleHighlight: "Mythic Lobby ya está en PC",
+      subtitle:
+        "La app de Windows va al lado de tu juego. Arma tu stack de 5, habla por voz mientras juegas y transmite la partida a tu sala con el sonido del juego.",
+      bullets: [
+        "Busca stack por medalla y posición, de Pos 1 a Pos 5",
+        "Sala de voz abierta mientras juegas, sin soltar el teclado",
+        "Transmitir con el sonido del juego y tu cámara en una burbuja",
+        "Retos y torneos 5v5 con árbitros, igual que en el teléfono",
+        "La misma cuenta en PC, navegador y Android",
+      ],
+      note: "Por ahora solo para Windows. Si Windows avisa de que no reconoce la app, pulsa «Más información» y luego «Ejecutar de todas formas».",
+      roomLabel: "Sala de voz · Dota 2",
+      roomTitle: "Stack para ranked",
+      streamLabel: "Transmitiendo con sonido",
+      users: [
+        { name: "Yoel", role: "Pos 1 · Carry", talking: false },
+        { name: "Dairon", role: "Pos 2 · Mid", talking: true },
+        { name: "Lázaro", role: "Pos 3 · Offlane", talking: false },
+        { name: "Rachel", role: "Pos 4 · Soft Support", talking: false },
+        { name: "Osmany", role: "Pos 5 · Hard Support", talking: false },
+      ],
+    },
     live: {
       chip: "Nuevo · En vivo",
       titlePart1: "Transmite tu partida",
@@ -347,7 +387,7 @@ export const STRINGS: Record<Lang, Strings> = {
         "Contador en vivo de cuántos están mirando",
         "Botón Grabar: guarda la transmisión en tu galería, con pantalla y voces",
       ],
-      note: "En Android el audio del juego no se transmite, solo la pantalla y la voz de la sala. Activa No molestar para que no se vean tus notificaciones.",
+      note: "En Android el audio del juego no se transmite, solo la pantalla y la voz de la sala; en la app de PC y en el navegador puedes incluir el sonido del juego. Activa No molestar para que no se vean tus notificaciones.",
       tabTitle: "En vivo",
       tabSubtitle: "Partidas que se están jugando ahora mismo",
       watch: "Mirar",
@@ -540,7 +580,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "¿Qué juegos están soportados?",
-          a: "14 juegos: Mobile Legends, Free Fire, COD Mobile, Honor of Kings, PUBG Mobile, Blood Strike, Counter-Strike 2, EA SPORTS FC Mobile, Clash Royale, Clash of Clans, Rise of Kingdoms, Albion Online, Skylore y Neo Monsters, con rank, rol, mains y stats independientes por juego.",
+          a: "15 juegos: Mobile Legends, Free Fire, COD Mobile, Honor of Kings, PUBG Mobile, Blood Strike, Counter-Strike 2, Dota 2, EA SPORTS FC Mobile, Clash Royale, Clash of Clans, Rise of Kingdoms, Albion Online, Skylore y Neo Monsters, con rank, rol, mains y stats independientes por juego.",
         },
         {
           q: "¿Cómo funcionan los retos y torneos?",
@@ -548,7 +588,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "¿Puedo transmitir mi partida?",
-          a: "Sí. Desde una sala de voz toca Transmitir y los demás ven tu pantalla, o abre tu propia sala desde la pestaña En vivo. En Android se transmite la imagen y la voz de la sala, pero no el audio del juego. También puedes grabarla y queda guardada en tu galería; todos en la sala ven un aviso de que estás grabando.",
+          a: "Sí. Desde una sala de voz toca Transmitir y los demás ven tu pantalla, o abre tu propia sala desde la pestaña En vivo. En Android se transmite la imagen y la voz de la sala, pero no el audio del juego; desde la app de PC o el navegador puedes incluir el sonido del juego y tu cámara en una burbuja. También puedes grabarla y queda guardada en tu galería; todos en la sala ven un aviso de que estás grabando.",
         },
         {
           q: "¿Funciona si mi conexión es mala o Google está limitado?",
@@ -637,7 +677,7 @@ export const STRINGS: Record<Lang, Strings> = {
       description:
         "Mythic Lobby es la app donde gamers arman squad, compiten en torneos con árbitros y transmiten en vivo. Filtros por rank, rol, horario y región. Voz integrada por partida.",
       mobileAppDescription:
-        "Arma squad, organiza partidas y retos, compite en torneos, transmite tu pantalla, habla por voz y juega minijuegos como dominó, parchís, ajedrez y Battle Squad. MLBB, Free Fire, COD Mobile y más, sin Discord.",
+        "Arma squad, organiza partidas y retos, compite en torneos, transmite tu pantalla, habla por voz y juega minijuegos como dominó, parchís, ajedrez y Battle Squad. MLBB, Free Fire, COD Mobile, Dota 2 y más, sin Discord.",
     },
   },
   en: {
@@ -645,7 +685,7 @@ export const STRINGS: Record<Lang, Strings> = {
       siteName: "Mythic Lobby",
       tagline: "Find your squad. Any game. Every rank.",
       description:
-        "Mythic Lobby is the free app where gamers find a squad, compete in refereed tournaments, stream their match live and talk by voice. MLBB, Free Fire, COD Mobile, PUBG Mobile, Clash Royale and more. No Discord.",
+        "Mythic Lobby is the free app where gamers find a squad, compete in refereed tournaments, stream their match live and talk by voice. MLBB, Free Fire, COD Mobile, Dota 2, CS2, PUBG Mobile and more. No Discord.",
     },
     nav: {
       features: "Features",
@@ -655,6 +695,7 @@ export const STRINGS: Record<Lang, Strings> = {
       showcase: "How it works",
       voice: "Voice",
       games: "Games",
+      pc: "PC",
       donate: "Support",
       faq: "FAQ",
       partnership: "Partner",
@@ -681,7 +722,7 @@ export const STRINGS: Record<Lang, Strings> = {
       cardVoiceValue: "5 speaking now",
     },
     highlights: [
-      { value: "14", label: "supported games" },
+      { value: "15", label: "supported games" },
       { value: "6", label: "minigames for your squad" },
       { value: "1–100", label: "levels with rewards" },
       { value: "ES · EN · PT", label: "in-app languages" },
@@ -692,7 +733,7 @@ export const STRINGS: Record<Lang, Strings> = {
       titleHighlight: "All your games.",
       titlePart2: "",
       subtitle:
-        "Full support for 14 competitive games (mobile and PC). Independent rank, role, mains and stats per game.",
+        "Full support for 15 competitive games (mobile and PC). Independent rank, role, mains and stats per game.",
       liveLabel: "Live",
       items: [
         { name: "Mobile Legends", tag: "5v5 MOBA" },
@@ -702,6 +743,7 @@ export const STRINGS: Record<Lang, Strings> = {
         { name: "PUBG Mobile", tag: "Battle Royale" },
         { name: "Blood Strike", tag: "Battle Royale" },
         { name: "Counter-Strike 2", tag: "Tactical FPS" },
+        { name: "Dota 2", tag: "5v5 MOBA · PC" },
         { name: "EA SPORTS FC Mobile", tag: "Football" },
         { name: "Clash Royale", tag: "1v1 Card" },
         { name: "Clash of Clans", tag: "Clan Wars" },
@@ -792,6 +834,31 @@ export const STRINGS: Record<Lang, Strings> = {
       ],
       final: { a: "Night Owls", b: "Havana Kings" },
     },
+    pc: {
+      chip: "New · PC app",
+      titlePart1: "Play Dota 2 or CS2?",
+      titleHighlight: "Mythic Lobby is now on PC",
+      subtitle:
+        "The Windows app sits next to your game. Build your 5-stack, talk by voice while you play and stream the match to your room with the game's sound.",
+      bullets: [
+        "Find a stack by medal and position, Pos 1 to Pos 5",
+        "Voice room stays open while you play, hands stay on the keyboard",
+        "Stream with the game's sound and your camera in a bubble",
+        "5v5 challenges and refereed tournaments, same as on your phone",
+        "One account on PC, browser and Android",
+      ],
+      note: "Windows only for now. If Windows says it doesn't recognize the app, click “More info” and then “Run anyway”.",
+      roomLabel: "Voice room · Dota 2",
+      roomTitle: "Ranked stack",
+      streamLabel: "Streaming with sound",
+      users: [
+        { name: "Yoel", role: "Pos 1 · Carry", talking: false },
+        { name: "Dairon", role: "Pos 2 · Mid", talking: true },
+        { name: "Lázaro", role: "Pos 3 · Offlane", talking: false },
+        { name: "Rachel", role: "Pos 4 · Soft Support", talking: false },
+        { name: "Osmany", role: "Pos 5 · Hard Support", talking: false },
+      ],
+    },
     live: {
       chip: "New · Live",
       titlePart1: "Stream your match",
@@ -806,7 +873,7 @@ export const STRINGS: Record<Lang, Strings> = {
         "Live count of how many are watching",
         "Record button: saves the stream to your gallery, screen and voices included",
       ],
-      note: "On Android the game's audio isn't streamed, only the screen and the room's voice. Turn on Do Not Disturb so your notifications don't show.",
+      note: "On Android the game's audio isn't streamed, only the screen and the room's voice; in the PC app and the browser you can include the game's sound. Turn on Do Not Disturb so your notifications don't show.",
       tabTitle: "Live",
       tabSubtitle: "Matches being played right now",
       watch: "Watch",
@@ -999,7 +1066,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "Which games are supported?",
-          a: "14 games: Mobile Legends, Free Fire, COD Mobile, Honor of Kings, PUBG Mobile, Blood Strike, Counter-Strike 2, EA SPORTS FC Mobile, Clash Royale, Clash of Clans, Rise of Kingdoms, Albion Online, Skylore and Neo Monsters, with independent rank, role, mains and stats per game.",
+          a: "15 games: Mobile Legends, Free Fire, COD Mobile, Honor of Kings, PUBG Mobile, Blood Strike, Counter-Strike 2, Dota 2, EA SPORTS FC Mobile, Clash Royale, Clash of Clans, Rise of Kingdoms, Albion Online, Skylore and Neo Monsters, with independent rank, role, mains and stats per game.",
         },
         {
           q: "How do challenges and tournaments work?",
@@ -1007,7 +1074,7 @@ export const STRINGS: Record<Lang, Strings> = {
         },
         {
           q: "Can I stream my match?",
-          a: "Yes. In a voice room tap Stream and everyone sees your screen, or open your own room from the Live tab. On Android the picture and the room's voice are streamed, but not the game's audio. You can also record it and it's saved to your gallery; everyone in the room sees a notice that you're recording.",
+          a: "Yes. In a voice room tap Stream and everyone sees your screen, or open your own room from the Live tab. On Android the picture and the room's voice are streamed, but not the game's audio; from the PC app or the browser you can include the game's sound and your camera in a bubble. You can also record it and it's saved to your gallery; everyone in the room sees a notice that you're recording.",
         },
         {
           q: "Does it work on a bad connection or where Google is restricted?",
@@ -1096,7 +1163,7 @@ export const STRINGS: Record<Lang, Strings> = {
       description:
         "Mythic Lobby is the app where gamers find a squad, compete in refereed tournaments and stream live. Filter by rank, role, schedule and region. Built-in voice per match.",
       mobileAppDescription:
-        "Build a squad, schedule matches and challenges, compete in tournaments, share your screen, talk by voice and play minigames like dominoes, Parchís, chess and Battle Squad. MLBB, Free Fire, COD Mobile and more, no Discord.",
+        "Build a squad, schedule matches and challenges, compete in tournaments, share your screen, talk by voice and play minigames like dominoes, Parchís, chess and Battle Squad. MLBB, Free Fire, COD Mobile, Dota 2 and more, no Discord.",
     },
   },
 };
