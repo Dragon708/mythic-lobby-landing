@@ -64,6 +64,7 @@ const GAME_ICONS: Record<string, string> = {
   "EA SPORTS FC Mobile": "/games/fifa-mobile.png",
   "Clash Royale": "/games/clash-royale.png",
   "Clash of Clans": "/games/clash-of-clans.png",
+  "Brawl Stars": "/games/brawl-stars.png",
   "Rise of Kingdoms": "/games/rise-of-kingdoms.png",
   "Albion Online": "/games/albion-online.png",
   "World of Warcraft": "/games/world-of-warcraft.png",
