@@ -10,11 +10,11 @@ const PLAY_STORE_URL =
   process.env.NEXT_PUBLIC_PLAY_STORE_URL ??
   "https://play.google.com/store/apps/details?id=com.mythiclobby.app";
 const WEB_APP_URL = process.env.NEXT_PUBLIC_WEB_APP_URL ?? "https://app.mythic.dsmarts.app";
-// El instalador de Windows (~140 MB) va como asset de la release "desktop-latest" de este repo:
-// cada versión nueva reemplaza ese asset con el mismo nombre y este enlace no cambia.
+// El instalador de Windows (~140 MB) está en Cloudflare R2 (bucket mythic-downloads):
+// cada versión se sube también como MythicLobby-Setup.exe, así este enlace no cambia.
 const PC_INSTALLER_URL =
   process.env.NEXT_PUBLIC_PC_INSTALLER_URL ??
-  "https://github.com/Dragon708/mythic-lobby-landing/releases/download/desktop-latest/MythicLobby-Setup.exe";
+  "https://dl.mythic.dsmarts.app/MythicLobby-Setup.exe";
 const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.1.21";
 const CONTACT_EMAIL = "jorgegmdgonzalez@gmail.com";
 const SITE_URL =
