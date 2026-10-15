@@ -10,6 +10,11 @@ const PLAY_STORE_URL =
   process.env.NEXT_PUBLIC_PLAY_STORE_URL ??
   "https://play.google.com/store/apps/details?id=com.mythiclobby.app";
 const WEB_APP_URL = process.env.NEXT_PUBLIC_WEB_APP_URL ?? "https://app.mythic.dsmarts.app";
+// El instalador de Windows (~140 MB) va como asset de la release "desktop-latest" de este repo:
+// cada versión nueva reemplaza ese asset con el mismo nombre y este enlace no cambia.
+const PC_INSTALLER_URL =
+  process.env.NEXT_PUBLIC_PC_INSTALLER_URL ??
+  "https://github.com/Dragon708/mythic-lobby-landing/releases/download/desktop-latest/MythicLobby-Setup.exe";
 const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.1.21";
 const CONTACT_EMAIL = "jorgegmdgonzalez@gmail.com";
 const SITE_URL =
@@ -326,6 +331,10 @@ function Hero({ t }: { t: T }) {
             <a href={WEB_APP_URL} className="btn-secondary">
               <IconGlobe className="w-5 h-5" />
               {t.hero.ctaWeb}
+            </a>
+            <a href={PC_INSTALLER_URL} className="btn-secondary">
+              <IconWindows className="w-5 h-5" />
+              {t.hero.ctaPc}
             </a>
           </div>
           <p className="text-xs text-muted">{t.hero.webNote}</p>
@@ -1074,6 +1083,10 @@ function CallToAction({ t }: { t: T }) {
                 <IconGlobe className="w-5 h-5" />
                 {t.cta.webButton}
               </a>
+              <a href={PC_INSTALLER_URL} className="btn-secondary">
+                <IconWindows className="w-5 h-5" />
+                {t.cta.pcButton}
+              </a>
             </div>
             <p className="text-xs text-muted mt-4">{t.cta.footnote}</p>
           </div>
@@ -1316,6 +1329,13 @@ function IconPlus({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 5v14" /><path d="M5 12h14" />
+    </svg>
+  );
+}
+function IconWindows({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+      <path d="M3 5.5 10.5 4.4v7.1H3V5.5Zm0 13 7.5 1.1v-7H3v5.9Zm8.5 1.3L21 21.2v-8.6h-9.5v7.2Zm0-15.6v7.3H21V2.8l-9.5 1.4Z" />
     </svg>
   );
 }
