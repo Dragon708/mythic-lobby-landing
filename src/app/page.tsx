@@ -10,6 +10,7 @@ const PLAY_STORE_URL =
   process.env.NEXT_PUBLIC_PLAY_STORE_URL ??
   "https://play.google.com/store/apps/details?id=com.mythiclobby.app";
 const WEB_APP_URL = process.env.NEXT_PUBLIC_WEB_APP_URL ?? "https://app.mythic.dsmarts.app";
+const SHOP_URL = "https://shop.mythic.dsmarts.app";
 // El instalador de Windows (~140 MB) está en Cloudflare R2 (bucket mythic-downloads):
 // cada versión se sube también como MythicLobby-Setup.exe, así este enlace no cambia.
 const PC_INSTALLER_URL =
@@ -134,6 +135,7 @@ export default function Home() {
         <Highlights t={t} />
         <Games t={t} />
         <PcGaming t={t} />
+        <ShopPromo t={t} />
         <Features t={t} />
         <WhyUs t={t} />
         <Competitive t={t} />
@@ -250,6 +252,13 @@ function NavBar({ lang, setLang, t }: { lang: Lang; setLang: (l: Lang) => void; 
         </nav>
         <div className="flex items-center gap-2">
           <LanguageSwitcher lang={lang} setLang={setLang} label={t.nav.languageLabel} />
+          <a
+            href={SHOP_URL}
+            className="inline-flex items-center gap-1.5 rounded-xl border border-[#f5b942]/40 bg-[#f5b942]/10 px-3 py-2.5 text-sm font-semibold text-[#f5d48a] hover:bg-[#f5b942]/20 transition"
+          >
+            <IconDiamond className="w-4 h-4" />
+            {t.nav.shop}
+          </a>
           <a
             href={playUrl}
             target="_blank"
@@ -889,6 +898,57 @@ function Rewards({ t }: { t: T }) {
   );
 }
 
+function ShopPromo({ t }: { t: T }) {
+  const s = t.shop;
+  const covers = ["/shop/mlbb-cover-960.webp", "/shop/free-fire-cover-960.webp", "/shop/pubg-cover-960.webp"];
+  return (
+    <section id="shop" className="relative py-20 md:py-28">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <div className="card relative overflow-hidden p-6 sm:p-8 md:p-14 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          <div className="absolute -top-32 -right-24 w-96 h-96 rounded-full bg-[#f5b942]/15 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-20 w-80 h-80 rounded-full bg-primary/20 blur-3xl pointer-events-none" />
+          <div className="relative min-w-0">
+            <span className="chip mb-5">
+              <IconDiamond className="w-3.5 h-3.5" />
+              {s.chip}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-tight">
+              {s.titlePart1} <span className="text-gradient">{s.titleHighlight}</span>.
+            </h2>
+            <p className="text-soft mt-4 leading-relaxed">{s.subtitle}</p>
+            <ul className="mt-6 space-y-3 text-soft">
+              {s.bullets.map((b) => (
+                <li key={b} className="flex gap-3">
+                  <IconCheck className="w-5 h-5 text-success mt-0.5 shrink-0" /> {b}
+                </li>
+              ))}
+            </ul>
+            <div className="flex flex-wrap gap-3 mt-8">
+              <a href={SHOP_URL} className="btn-primary">
+                <IconDiamond className="w-5 h-5" />
+                {s.button}
+              </a>
+            </div>
+            <p className="mt-6 text-xs text-muted leading-relaxed">{s.note}</p>
+          </div>
+          <a href={SHOP_URL} className="relative min-w-0 grid gap-3" aria-label={s.button}>
+            {covers.map((src, i) => (
+              <div
+                key={src}
+                className="relative aspect-[16/7] overflow-hidden rounded-2xl ring-1 ring-border/70"
+                style={{ transform: `translateX(${i === 1 ? 24 : 0}px)` }}
+              >
+                <Image src={src} alt="" fill sizes="(min-width: 768px) 480px, 100vw" className="object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[rgba(5,7,14,0.55)] to-transparent" />
+              </div>
+            ))}
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function SectionHeader({
   eyebrow,
   title,
@@ -1312,6 +1372,9 @@ function Footer({ t }: { t: T }) {
             <Link href="/delete-account" className="text-soft hover:text-foreground transition">
               {t.footer.deleteAccountLink}
             </Link>
+            <a href={SHOP_URL} className="text-soft hover:text-foreground transition">
+              {t.footer.shopLink}
+            </a>
           </nav>
         </div>
         <IndependenceNotice className="max-w-3xl mx-auto text-center" />
@@ -1322,6 +1385,13 @@ function Footer({ t }: { t: T }) {
 
 type IconProps = { className?: string };
 
+function IconDiamond({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 3h12l4 6-10 12L2 9z" /><path d="M2 9h20" /><path d="m12 21-4-12 4-6 4 6z" />
+    </svg>
+  );
+}
 function IconSparkles({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

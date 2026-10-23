@@ -21,6 +21,7 @@ export type Strings = {
     donate: string;
     faq: string;
     partnership: string;
+    shop: string;
     download: string;
     languageLabel: string;
   };
@@ -181,8 +182,18 @@ export type Strings = {
     segments: string[];
     emailLabel: string;
   };
+  shop: {
+    chip: string;
+    titlePart1: string;
+    titleHighlight: string;
+    subtitle: string;
+    bullets: string[];
+    button: string;
+    note: string;
+  };
   footer: {
     disclaimer: string;
+    shopLink: string;
     privacyLink: string;
     termsLink: string;
     deleteAccountLink: string;
@@ -213,6 +224,7 @@ export const STRINGS: Record<Lang, Strings> = {
       donate: "Apoyar",
       faq: "FAQ",
       partnership: "Colaborar",
+      shop: "Tienda",
       download: "Descargar gratis",
       languageLabel: "Idioma",
     },
@@ -668,12 +680,27 @@ export const STRINGS: Record<Lang, Strings> = {
       segments: ["Streamers", "Cybercafés", "Torneos", "Equipos esports", "Sponsors"],
       emailLabel: "Escríbenos a",
     },
+    shop: {
+      chip: "Mythic Shop",
+      titlePart1: "Recarga tus juegos",
+      titleHighlight: "pagando en CUP",
+      subtitle:
+        "Diamantes, UC, gemas y pases para Mobile Legends, Free Fire, PUBG Mobile, Blood Strike, Honor of Kings y más. Entras con tu misma cuenta de Mythic Lobby.",
+      bullets: [
+        "Paga por transferencia o saldo móvil",
+        "Entrega en minutos a tu ID de jugador",
+        "Puntos y recargas gratis en cada compra",
+      ],
+      button: "Ir a la tienda",
+      note: "shop.mythic.dsmarts.app · Atención por WhatsApp",
+    },
     footer: {
       disclaimer:
         "Proyecto comunitario independiente. Sin afiliación con ningún publisher de videojuegos. Todas las marcas pertenecen a sus respectivos dueños.",
       privacyLink: "Política de privacidad",
       termsLink: "Términos de servicio",
       deleteAccountLink: "Borrar cuenta",
+      shopLink: "Tienda de recargas",
     },
     jsonLd: {
       description:
@@ -701,6 +728,7 @@ export const STRINGS: Record<Lang, Strings> = {
       donate: "Support",
       faq: "FAQ",
       partnership: "Partner",
+      shop: "Store",
       download: "Download free",
       languageLabel: "Language",
     },
@@ -1156,12 +1184,27 @@ export const STRINGS: Record<Lang, Strings> = {
       segments: ["Streamers", "Internet cafés", "Tournaments", "Esports teams", "Sponsors"],
       emailLabel: "Reach us at",
     },
+    shop: {
+      chip: "Mythic Shop",
+      titlePart1: "Top up your games",
+      titleHighlight: "paying in CUP",
+      subtitle:
+        "Diamonds, UC, gems and passes for Mobile Legends, Free Fire, PUBG Mobile, Blood Strike, Honor of Kings and more. Sign in with your same Mythic Lobby account.",
+      bullets: [
+        "Pay by bank transfer or mobile credit",
+        "Delivered to your player ID in minutes",
+        "Points and free top-ups on every purchase",
+      ],
+      button: "Go to the store",
+      note: "shop.mythic.dsmarts.app · Support on WhatsApp",
+    },
     footer: {
       disclaimer:
         "Independent community project. Not affiliated with any game publisher. All trademarks belong to their respective owners.",
       privacyLink: "Privacy Policy",
       termsLink: "Terms of Service",
       deleteAccountLink: "Delete account",
+      shopLink: "Top-up store",
     },
     jsonLd: {
       description:
