@@ -11,6 +11,8 @@ const PLAY_STORE_URL =
   "https://play.google.com/store/apps/details?id=com.mythiclobby.app";
 const WEB_APP_URL = process.env.NEXT_PUBLIC_WEB_APP_URL ?? "https://app.mythic.dsmarts.app";
 const SHOP_URL = "https://shop.mythic.dsmarts.app";
+// La tienda está cerrada por ahora (2026-10-25): sin enlaces hasta reabrirla.
+const SHOW_SHOP = false;
 // El instalador de Windows (~140 MB) está en Cloudflare R2 (bucket mythic-downloads):
 // cada versión se sube también como MythicLobby-Setup.exe, así este enlace no cambia.
 const PC_INSTALLER_URL =
@@ -135,7 +137,7 @@ export default function Home() {
         <Highlights t={t} />
         <Games t={t} />
         <PcGaming t={t} />
-        <ShopPromo t={t} />
+        {SHOW_SHOP && <ShopPromo t={t} />}
         <Features t={t} />
         <WhyUs t={t} />
         <Competitive t={t} />
@@ -252,13 +254,15 @@ function NavBar({ lang, setLang, t }: { lang: Lang; setLang: (l: Lang) => void; 
         </nav>
         <div className="flex items-center gap-2">
           <LanguageSwitcher lang={lang} setLang={setLang} label={t.nav.languageLabel} />
-          <a
-            href={SHOP_URL}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-[#f5b942]/40 bg-[#f5b942]/10 px-3 py-2.5 text-sm font-semibold text-[#f5d48a] hover:bg-[#f5b942]/20 transition"
-          >
-            <IconDiamond className="w-4 h-4" />
-            {t.nav.shop}
-          </a>
+          {SHOW_SHOP && (
+            <a
+              href={SHOP_URL}
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[#f5b942]/40 bg-[#f5b942]/10 px-3 py-2.5 text-sm font-semibold text-[#f5d48a] hover:bg-[#f5b942]/20 transition"
+            >
+              <IconDiamond className="w-4 h-4" />
+              {t.nav.shop}
+            </a>
+          )}
           <a
             href={playUrl}
             target="_blank"
@@ -1372,9 +1376,11 @@ function Footer({ t }: { t: T }) {
             <Link href="/delete-account" className="text-soft hover:text-foreground transition">
               {t.footer.deleteAccountLink}
             </Link>
-            <a href={SHOP_URL} className="text-soft hover:text-foreground transition">
-              {t.footer.shopLink}
-            </a>
+            {SHOW_SHOP && (
+              <a href={SHOP_URL} className="text-soft hover:text-foreground transition">
+                {t.footer.shopLink}
+              </a>
+            )}
           </nav>
         </div>
         <IndependenceNotice className="max-w-3xl mx-auto text-center" />
