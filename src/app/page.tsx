@@ -242,25 +242,23 @@ function NavBar({ lang, setLang, t }: { lang: Lang; setLang: (l: Lang) => void; 
             Mythic <span className="text-gradient">Lobby</span>
           </span>
         </Link>
-        <nav className="hidden md:flex items-center gap-6 text-sm text-soft">
+        <nav className="hidden lg:flex items-center gap-6 text-sm text-soft whitespace-nowrap">
           <a href="#games" className="hover:text-foreground transition">{t.nav.games}</a>
-          <a href="#pc" className="hover:text-foreground transition">{t.nav.pc}</a>
-          <a href="#features" className="hover:text-foreground transition">{t.nav.features}</a>
           <a href="#competitive" className="hover:text-foreground transition">{t.nav.competitive}</a>
           <a href="#live" className="hover:text-foreground transition">{t.nav.live}</a>
           <a href="#arcade" className="hover:text-foreground transition">{t.nav.arcade}</a>
           <a href="#faq" className="hover:text-foreground transition">{t.nav.faq}</a>
-          <a href="#partnership" className="hidden lg:inline hover:text-foreground transition">{t.nav.partnership}</a>
         </nav>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0 whitespace-nowrap">
           <LanguageSwitcher lang={lang} setLang={setLang} label={t.nav.languageLabel} />
           {SHOW_SHOP && (
             <a
               href={SHOP_URL}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-[#f5b942]/40 bg-[#f5b942]/10 px-3 py-2.5 text-sm font-semibold text-[#f5d48a] hover:bg-[#f5b942]/20 transition"
+              aria-label={t.nav.shop}
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[#f5b942]/40 bg-[#f5b942]/10 px-3 py-2 text-sm font-semibold text-[#f5d48a] hover:bg-[#f5b942]/20 transition"
             >
               <IconDiamond className="w-4 h-4" />
-              {t.nav.shop}
+              <span className="hidden sm:inline">{t.nav.shop}</span>
             </a>
           )}
           <a
@@ -1366,7 +1364,7 @@ function Footer({ t }: { t: T }) {
               {t.meta.siteName} · {year}
             </p>
           </div>
-          <nav className="flex items-center gap-5">
+          <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             <Link href="/privacy" className="text-soft hover:text-foreground transition">
               {t.footer.privacyLink}
             </Link>
@@ -1376,6 +1374,9 @@ function Footer({ t }: { t: T }) {
             <Link href="/delete-account" className="text-soft hover:text-foreground transition">
               {t.footer.deleteAccountLink}
             </Link>
+            <a href="#partnership" className="text-soft hover:text-foreground transition">
+              {t.nav.partnership}
+            </a>
             {SHOW_SHOP && (
               <a href={SHOP_URL} className="text-soft hover:text-foreground transition">
                 {t.footer.shopLink}

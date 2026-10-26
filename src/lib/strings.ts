@@ -225,7 +225,7 @@ export const STRINGS: Record<Lang, Strings> = {
       faq: "FAQ",
       partnership: "Colaborar",
       shop: "Tienda",
-      download: "Descargar gratis",
+      download: "Descargar",
       languageLabel: "Idioma",
     },
     hero: {
@@ -729,7 +729,7 @@ export const STRINGS: Record<Lang, Strings> = {
       faq: "FAQ",
       partnership: "Partner",
       shop: "Store",
-      download: "Download free",
+      download: "Download",
       languageLabel: "Language",
     },
     hero: {
