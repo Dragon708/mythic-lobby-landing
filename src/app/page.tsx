@@ -12,7 +12,7 @@ const PLAY_STORE_URL =
 const WEB_APP_URL = process.env.NEXT_PUBLIC_WEB_APP_URL ?? "https://app.mythic.dsmarts.app";
 const SHOP_URL = "https://shop.mythic.dsmarts.app";
 // La tienda está cerrada por ahora (2026-10-25): sin enlaces hasta reabrirla.
-const SHOW_SHOP = false;
+const SHOW_SHOP = true;
 // El instalador de Windows (~140 MB) está en Cloudflare R2 (bucket mythic-downloads):
 // cada versión se sube también como MythicLobby-Setup.exe, así este enlace no cambia.
 const PC_INSTALLER_URL =
